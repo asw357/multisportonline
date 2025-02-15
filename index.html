@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultisportOnline</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welkom bij MultisportOnline</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#simulate">Simulatie</a></li>
+                <li><a href="#leaderboard">Leaderboard</a></li>
+                <li><a href="#admin">Beheer</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="home">
+        <h2>Overzicht van sporten</h2>
+        <p>Hier kun je alle sporten bekijken en beheren.</p>
+    </section>
+
+    <section id="simulate">
+        <h2>Sport Simulatie</h2>
+        <button onclick="startSimulation()">Start Simulatie</button>
+        <p id="simulation-result">Resultaat komt hier...</p>
+    </section>
+
+    <section id="leaderboard">
+        <h2>Leaderboard - Medal Points (MP)</h2>
+        <ul id="leaderboard-list">
+            <!-- Dynamische gegevens hier -->
+        </ul>
+    </section>
+
+    <section id="admin">
+        <h2>Beheer Paneel</h2>
+        <p>Hier kun je sporten toevoegen, regels aanpassen en simulaties configureren.</p>
+        <label for="newSport">Nieuwe Sport Toevoegen:</label>
+        <input type="text" id="newSport" placeholder="Sportnaam">
+        <button onclick="addSport()">Toevoegen</button>
+    </section>
+
+    <script>
+        let sports = ["Voetbal", "Basketbal", "Tennis", "Zwemmen", "Atletiek"];
+        
+        function startSimulation() {
+            let randomSport = sports[Math.floor(Math.random() * sports.length)];
+            document.getElementById("simulation-result").innerText = "Gesimuleerde sport: " + randomSport;
+        }
+        
+        function addSport() {
+            let newSport = document.getElementById("newSport").value;
+            if (newSport) {
+                sports.push(newSport);
+                alert(newSport + " is toegevoegd!");
+                document.getElementById("newSport").value = "";
+            }
+        }
+    </script>
+</body>
+</html>
