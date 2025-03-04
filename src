@@ -1,0 +1,124 @@
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+
+export default function MultiSportOnlineAdmin() {
+    const [countries, setCountries] = useState([]);
+    const [newCountry, setNewCountry] = useState("");
+    const [athletes, setAthletes] = useState([]);
+    const [newAthlete, setNewAthlete] = useState({ name: "", country: "" });
+    const [events, setEvents] = useState([]);
+    const [newEvent, setNewEvent] = useState({ name: "", date: "" });
+
+    const addCountry = () => {
+        if (newCountry) {
+            setCountries([...countries, newCountry]);
+            setNewCountry("");
+        }
+    };
+
+    const addAthlete = () => {
+        if (newAthlete.name && newAthlete.country) {
+            setAthletes([...athletes, newAthlete]);
+            setNewAthlete({ name: "", country: "" });
+        }
+    };
+
+    const addEvent = () => {
+        if (newEvent.name && newEvent.date) {
+            setEvents([...events, newEvent]);
+            setNewEvent({ name: "", date: "" });
+        }
+    };
+
+    return (
+        <div className="p-4 space-y-6">
+            <h1 className="text-xl font-bold">MultiSportOnline Admin Panel</h1>
+            
+            <Card>
+                <CardContent>
+                    <h2 className="font-semibold">Landen beheren</h2>
+                    <Input
+                        value={newCountry}
+                        onChange={(e) => setNewCountry(e.target.value)}
+                        placeholder="Nieuw land toevoegen"
+                    />
+                    <Button onClick={addCountry} className="mt-2">Toevoegen</Button>
+                    <ul className="mt-4">
+                        {countries.map((country, index) => (
+                            <li key={index}>{country}</li>
+                        ))}
+                    </ul>
+                </CardContent>
+            </Card>
+            
+            <Card>
+                <CardContent>
+                    <h2 className="font-semibold">Atleten beheren</h2>
+                    <Input
+                        value={newAthlete.name}
+                        onChange={(e) => setNewAthlete({ ...newAthlete, name: e.target.value })}
+                        placeholder="Atleet naam"
+                    />
+                    <Input
+                        value={newAthlete.country}
+                        onChange={(e) => setNewAthlete({ ...newAthlete, country: e.target.value })}
+                        placeholder="Land"
+                    />
+                    <Button onClick={addAthlete} className="mt-2">Toevoegen</Button>
+                    <Table className="mt-4">
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Naam</TableHead>
+                                <TableHead>Land</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {athletes.map((athlete, index) => (
+                                <TableRow key={index}>
+                                    <TableCell>{athlete.name}</TableCell>
+                                    <TableCell>{athlete.country}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
+            
+            <Card>
+                <CardContent>
+                    <h2 className="font-semibold">Evenementen beheren</h2>
+                    <Input
+                        value={newEvent.name}
+                        onChange={(e) => setNewEvent({ ...newEvent, name: e.target.value })}
+                        placeholder="Evenement naam"
+                    />
+                    <Input
+                        type="date"
+                        value={newEvent.date}
+                        onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
+                    />
+                    <Button onClick={addEvent} className="mt-2">Toevoegen</Button>
+                    <Table className="mt-4">
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Evenement</TableHead>
+                                <TableHead>Datum</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {events.map((event, index) => (
+                                <TableRow key={index}>
+                                    <TableCell>{event.name}</TableCell>
+                                    <TableCell>{event.date}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
+        </div>
+    );
+}
