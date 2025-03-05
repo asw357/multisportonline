@@ -38,6 +38,21 @@
             max-width: 800px;
             box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
         }
+        .admin-panel {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff;
+            width: 80%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        input, button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -49,6 +64,14 @@
         <div class="content" id="dynamic-content">
             <h2>Welkom bij MultisportOnline!</h2>
             <p>Beheer en simuleer sporttoernooien zoals jij dat wilt.</p>
+        </div>
+        <div class="admin-panel">
+            <h2>Admin Paneel</h2>
+            <label for="page-title">Paginatitel:</label>
+            <input type="text" id="page-title" placeholder="Voer titel in">
+            <label for="page-content">Pagina-inhoud:</label>
+            <input type="text" id="page-content" placeholder="Voer inhoud in">
+            <button onclick="updatePage()">Opslaan</button>
         </div>
     </main>
     <script>
@@ -67,6 +90,16 @@
                 <h2>${siteData.pages[page].title}</h2>
                 <p>${siteData.pages[page].content}</p>
             `;
+            document.getElementById("page-title").value = siteData.pages[page].title;
+            document.getElementById("page-content").value = siteData.pages[page].content;
+        }
+
+        function updatePage() {
+            let newTitle = document.getElementById("page-title").value;
+            let newContent = document.getElementById("page-content").value;
+            siteData.pages["home"].title = newTitle;
+            siteData.pages["home"].content = newContent;
+            loadPage("home");
         }
 
         function generateNav() {
