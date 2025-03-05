@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultisportOnline</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #007bff;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        nav {
+            margin: 20px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #007bff;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+        main {
+            padding: 20px;
+        }
+        .content {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        MultisportOnline
+    </header>
+    <nav id="nav-bar"></nav>
+    <main>
+        <div class="content" id="dynamic-content">
+            <h2>Welkom bij MultisportOnline!</h2>
+            <p>Beheer en simuleer sporttoernooien zoals jij dat wilt.</p>
+        </div>
+    </main>
+    <script>
+        let siteData = {
+            "pages": {
+                "home": { "title": "Welkom bij MultisportOnline", "content": "Beheer en simuleer sporttoernooien zoals jij dat wilt." },
+                "sports": { "title": "Sporten", "content": "Hier kun je alle sporten beheren en toevoegen." },
+                "tournaments": { "title": "Toernooien", "content": "Maak en beheer je eigen toernooien." },
+                "dashboard": { "title": "Dashboard", "content": "Hier kun je teams en wedstrijden toevoegen." },
+                "about": { "title": "Over", "content": "Dit is een gratis online sportmanagementgame." }
+            }
+        };
+
+        function loadPage(page) {
+            document.getElementById("dynamic-content").innerHTML = `
+                <h2>${siteData.pages[page].title}</h2>
+                <p>${siteData.pages[page].content}</p>
+            `;
+        }
+
+        function generateNav() {
+            let nav = document.getElementById("nav-bar");
+            Object.keys(siteData.pages).forEach(page => {
+                let link = document.createElement("a");
+                link.href = "#";
+                link.innerText = siteData.pages[page].title;
+                link.onclick = () => loadPage(page);
+                nav.appendChild(link);
+                nav.appendChild(document.createTextNode(" | "));
+            });
+        }
+
+        generateNav();
+        loadPage("home");
+    </script>
+</body>
+</html>
