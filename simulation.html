@@ -96,6 +96,17 @@
             <optgroup label="Touwtrekken">
                 <option value="Touwtrekken">Touwtrekken (Best of 3)</option>
             </optgroup>
+            <optgroup label="Wielersport">
+                <option value="Tijdrit 1000m">Tijdrit, 1000m</option>
+                <option value="10km">10 km</option>
+                <option value="100km">100 km</option>
+                <option value="12 uur">12 uur</option>
+            </optgroup>
+            <optgroup label="Zwemmen">
+                <option value="100m vrije slag matrozen">100 m vrije slag matrozen</option>
+                <option value="500m vrije slag">500 m vrije slag</option>
+                <option value="1200m vrije slag">1200 m vrije slag</option>
+            </optgroup>
         </select>
         <button onclick="simulateEvent()">Start Wedstrijd</button>
         <div class="log" id="gameLog"></div>
@@ -120,25 +131,6 @@
             logDiv.scrollTop = logDiv.scrollHeight;
         }
 
-        function getDuration(sport) {
-            const durations = {
-                "100m": 10000,
-                "400m": 45000,
-                "800m": 120000,
-                "1500m": 210000,
-                "110m Horden": 12000,
-                "Marathon": 7200000,
-                "Touwtrekken": 30000,
-                "Hink-stap-springen": 60000,
-                "Hoogspringen": 60000,
-                "Polsstokhoogspringen": 60000,
-                "Verspringen": 60000,
-                "Discuswerpen": 60000,
-                "Kogelstoten": 60000
-            };
-            return durations[sport] || 60000;
-        }
-
         function simulateEvent() {
             if (raceInProgress) return;
             raceInProgress = true;
@@ -147,15 +139,20 @@
             document.getElementById("leaderboard").querySelector("tbody").innerHTML = "";
             logMessage(`Start van de ${selectedSport} wedstrijd!`);
             let duration = getDuration(selectedSport);
+            let atleten = generateAthletes();
             let interval = duration / 10;
             let progress = 0;
             let simulation = setInterval(() => {
                 progress += interval;
-                let distanceCovered = Math.round((progress / duration) * 100);
-                logMessage(`Tussenstand: ${distanceCovered}m afgelegd`);
+                atleten.forEach(atleet => {
+                    atleet.progress += Math.random() * 10;
+                });
+                atleten.sort((a, b) => b.progress - a.progress);
+                updateLeaderboard(atleten);
+                logMessage(`Tussenstand: ${atleten.map(a => `${a.name}: ${a.progress.toFixed(1)}m`).join(' | ')}`);
                 if (progress >= duration) {
                     clearInterval(simulation);
-                    logMessage(`Winnaar: Atleet ${Math.ceil(Math.random() * 8)}!`);
+                    logMessage(`Winnaar: ${atleten[0].name}!`);
                     raceInProgress = false;
                 }
             }, interval);
