@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MultisportOnline - Simulatie</title>
+    <title>MultisportOnline - Geavanceerde Simulatie</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -35,87 +35,96 @@
             font-weight: bold;
             margin-top: 15px;
         }
+        .log {
+            text-align: left;
+            max-height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: #f9f9f9;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Wedstrijdsimulatie</h1>
-        <p>Kies een sport en simuleer een wedstrijd:</p>
+        <h1>Geavanceerde Wedstrijdsimulatie</h1>
+        <p>Kies een sport en simuleer een volledige wedstrijd:</p>
         <select id="sportSelect">
-            <optgroup label="Atletiek">
-                <option value="100m">100m</option>
+            <optgroup label="Sprint & Loopnummers">
+                <option value="100m">100m Sprint</option>
                 <option value="400m">400m</option>
                 <option value="800m">800m</option>
                 <option value="1500m">1500m</option>
                 <option value="110m Horden">110m Horden</option>
-                <option value="Hink-stap-springen">Hink-stap-springen</option>
-                <option value="Hoogspringen">Hoogspringen</option>
-                <option value="Polsstokhoogspringen">Polsstokhoogspringen</option>
-                <option value="Verspringen">Verspringen</option>
-                <option value="Discuswerpen">Discuswerpen</option>
+            </optgroup>
+            <optgroup label="Veldsporten">
                 <option value="Kogelstoten">Kogelstoten</option>
-                <option value="Marathon">Marathon</option>
+                <option value="Discuswerpen">Discuswerpen</option>
+                <option value="Verspringen">Verspringen</option>
+                <option value="Hoogspringen">Hoogspringen</option>
             </optgroup>
-            <optgroup label="Gewichtheffen">
-                <option value="Eenarmig (Open)">Eenarmig (Open)</option>
-            </optgroup>
-            <optgroup label="Turnen">
-                <option value="Touwklimmen">Touwklimmen</option>
-                <option value="Knotszwaaien">Knotszwaaien</option>
-                <option value="Indiaanse knotsen">Indiaanse knotsen</option>
-                <option value="Salto's">Salto's</option>
-            </optgroup>
-            <optgroup label="Schermen">
-                <option value="Sabel, individueel">Sabel, individueel</option>
-                <option value="Degen, leraren">Degen, leraren</option>
-                <option value="Floret, leraren">Floret, leraren</option>
-                <option value="Sabel, leraren">Sabel, leraren</option>
-            </optgroup>
-            <optgroup label="Schietsport">
-                <option value="Militair pistool 25 m">Militair pistool 25 m</option>
-                <option value="Militair geweer 200 m">Militair geweer 200 m</option>
-                <option value="Vrij geweer 300 m">Vrij geweer 300 m</option>
-                <option value="Vrij pistool 50 m">Vrij pistool 50 m</option>
-            </optgroup>
-            <optgroup label="Schoonspringen">
-                <option value="Hoogduiken">Hoogduiken</option>
-            </optgroup>
-            <optgroup label="Touwtrekken">
+            <optgroup label="Schermen & Touwtrekken">
                 <option value="Touwtrekken">Touwtrekken</option>
-            </optgroup>
-            <optgroup label="Wielersport - Baan">
-                <option value="Tijdrit, 1000 m">Tijdrit, 1000 m</option>
-                <option value="10 km">10 km</option>
-                <option value="100 km">100 km</option>
-                <option value="12 uur">12 uur</option>
-            </optgroup>
-            <optgroup label="Zeilen">
-                <option value="0,5 ton">0,5 ton</option>
-            </optgroup>
-            <optgroup label="Zwemmen">
-                <option value="100 m vrije slag matrozen">100 m vrije slag matrozen</option>
-                <option value="500 m vrije slag">500 m vrije slag</option>
-                <option value="1200 m vrije slag">1200 m vrije slag</option>
+                <option value="Schermen">Schermen</option>
             </optgroup>
         </select>
-        <button onclick="simulateEvent()">Simuleer Wedstrijd</button>
-        <p class="result" id="gameResult"></p>
+        <button onclick="simulateEvent()">Start Wedstrijd</button>
+        <div class="log" id="gameLog"></div>
     </div>
 
     <script>
-        const athletes = [
-            { name: "Lukas Müller", rating: 85 },
-            { name: "Sophie Lefevre", rating: 78 },
-            { name: "Kenji Tanaka", rating: 90 },
-            { name: "Carlos Souza", rating: 82 },
-            { name: "Isabela Gomes", rating: 76 }
-        ];
+        function logMessage(message) {
+            let logDiv = document.getElementById("gameLog");
+            logDiv.innerHTML += `<p>${message}</p>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
 
         function simulateEvent() {
             let selectedSport = document.getElementById("sportSelect").value;
-            let sortedAthletes = athletes.sort((a, b) => (b.rating + Math.random() * 10) - (a.rating + Math.random() * 10));
-            let winner = sortedAthletes[0];
-            document.getElementById("gameResult").innerText = `${selectedSport}: Winnaar - ${winner.name} 🏆`;
+            document.getElementById("gameLog").innerHTML = "";
+            logMessage(`Start van de ${selectedSport} wedstrijd!`);
+
+            if (["100m", "400m", "800m", "1500m", "110m Horden"].includes(selectedSport)) {
+                simulateRace(selectedSport);
+            } else if (["Kogelstoten", "Discuswerpen", "Verspringen", "Hoogspringen"].includes(selectedSport)) {
+                simulateFieldEvent(selectedSport);
+            } else if (selectedSport === "Touwtrekken") {
+                simulateTugOfWar();
+            } else if (selectedSport === "Schermen") {
+                simulateFencing();
+            }
+        }
+
+        function simulateRace(event) {
+            logMessage("De atleten staan klaar...");
+            setTimeout(() => logMessage("Start!"), 1000);
+            setTimeout(() => logMessage("Halverwege..."), 3000);
+            setTimeout(() => logMessage("Laatste meters!"), 5000);
+            setTimeout(() => logMessage(`Winnaar: Atleet ${Math.ceil(Math.random() * 8)} met een tijd van ${(9 + Math.random()).toFixed(2)} seconden!`), 7000);
+        }
+
+        function simulateFieldEvent(event) {
+            logMessage("Atleten beginnen met hun pogingen...");
+            for (let i = 1; i <= 3; i++) {
+                setTimeout(() => logMessage(`Poging ${i}: Atleet ${Math.ceil(Math.random() * 8)} gooit/springt ${(5 + Math.random() * 15).toFixed(2)} meter.`), i * 3000);
+            }
+            setTimeout(() => logMessage("Beste prestatie bepaalt de winnaar!"), 10000);
+        }
+
+        function simulateTugOfWar() {
+            logMessage("Teams maken zich klaar...");
+            setTimeout(() => logMessage("Team A trekt hard!"), 2000);
+            setTimeout(() => logMessage("Team B vecht terug!"), 4000);
+            setTimeout(() => logMessage(`Winnaar: Team ${Math.random() > 0.5 ? "A" : "B"}!`), 6000);
+        }
+
+        function simulateFencing() {
+            logMessage("Schermwedstrijd begint!");
+            for (let i = 1; i <= 10; i++) {
+                setTimeout(() => logMessage(`Punt ${i}: Atleet ${Math.ceil(Math.random() * 2)} scoort!`), i * 2000);
+            }
+            setTimeout(() => logMessage("Winnaar bepaald op punten!"), 22000);
         }
     </script>
 </body>
