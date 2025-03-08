@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MultisportOnline - Testsite</title>
+    <title>MultisportOnline - Testversie</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,8 +48,8 @@
         <h3>Train je atleten (kost 10 MP)</h3>
         <button onclick="trainAthlete()">Train willekeurige atleet</button>
         <p id="mp">MedalPoints: 50</p>
-        <h3>Simuleer een wedstrijd</h3>
-        <button onclick="simulateGame()">Speel testwedstrijd</button>
+        <h3>Simuleer een sportevenement</h3>
+        <button onclick="simulateGame()">Speel een wedstrijd</button>
         <p id="gameResult"></p>
     </div>
 
@@ -57,6 +57,7 @@
         const countries = ["Australië", "Bulgarije", "Chili", "Denemarken", "IJsland"];
         const firstNames = ["Lukas", "Sophie", "Kenji", "Carlos", "Isabela"];
         const lastNames = ["Müller", "Lefevre", "Tanaka", "Souza", "Gomes"];
+        const sports = ["100m Sprint", "Zwemmen 200m", "Turnen", "Gewichtheffen", "Judo"];
         let assignedCountries = [];
         let mp = 50;
         let athletes = [];
@@ -84,8 +85,9 @@
             for (let i = 0; i < 3; i++) {
                 let firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
                 let lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+                let sport = sports[Math.floor(Math.random() * sports.length)];
                 let rating = Math.floor(Math.random() * 100) + 1;
-                athletes.push({ name: `${firstName} ${lastName}`, rating: rating });
+                athletes.push({ name: `${firstName} ${lastName}`, sport: sport, rating: rating });
             }
             displayAthletes();
         }
@@ -94,7 +96,7 @@
             let athletesDiv = document.getElementById('athletes');
             athletesDiv.innerHTML = "";
             athletes.forEach(athlete => {
-                athletesDiv.innerHTML += `<p>${athlete.name} - Rating: ${athlete.rating}</p>`;
+                athletesDiv.innerHTML += `<p>${athlete.name} - ${athlete.sport} - Rating: ${athlete.rating}</p>`;
             });
         }
         
@@ -111,8 +113,9 @@
         }
         
         function simulateGame() {
+            let event = sports[Math.floor(Math.random() * sports.length)];
             let winner = athletes[Math.floor(Math.random() * athletes.length)];
-            document.getElementById('gameResult').innerText = `Winnaar: ${winner.name} 🏆`;
+            document.getElementById('gameResult').innerText = `${event}: Winnaar - ${winner.name} 🏆`;
         }
     </script>
 </body>
