@@ -98,10 +98,18 @@
 
         function simulateRace(event) {
             logMessage("De atleten staan klaar...");
-            setTimeout(() => logMessage("Start!"), 1000);
-            setTimeout(() => logMessage("Halverwege..."), 3000);
-            setTimeout(() => logMessage("Laatste meters!"), 5000);
-            setTimeout(() => logMessage(`Winnaar: Atleet ${Math.ceil(Math.random() * 8)} met een tijd van ${(9 + Math.random()).toFixed(2)} seconden!`), 7000);
+            let racePositions = Array.from({ length: 8 }, () => 0);
+            let raceInterval = setInterval(() => {
+                for (let i = 0; i < racePositions.length; i++) {
+                    racePositions[i] += Math.random() * 10;
+                }
+                logMessage(`Tussenstand: ${racePositions.map((pos, i) => `Atleet ${i + 1}: ${pos.toFixed(1)}m`).join(' | ')}`);
+                if (Math.max(...racePositions) >= 100) {
+                    clearInterval(raceInterval);
+                    let winner = racePositions.indexOf(Math.max(...racePositions)) + 1;
+                    logMessage(`Winnaar: Atleet ${winner} met een tijd van ${(9 + Math.random()).toFixed(2)} seconden!`);
+                }
+            }, 2000);
         }
 
         function simulateFieldEvent(event) {
@@ -114,17 +122,34 @@
 
         function simulateTugOfWar() {
             logMessage("Teams maken zich klaar...");
-            setTimeout(() => logMessage("Team A trekt hard!"), 2000);
-            setTimeout(() => logMessage("Team B vecht terug!"), 4000);
-            setTimeout(() => logMessage(`Winnaar: Team ${Math.random() > 0.5 ? "A" : "B"}!`), 6000);
+            let teamAScore = 0, teamBScore = 0;
+            let round = 1;
+            function nextRound() {
+                if (teamAScore < 2 && teamBScore < 2) {
+                    let winner = Math.random() > 0.5 ? 'A' : 'B';
+                    if (winner === 'A') teamAScore++; else teamBScore++;
+                    logMessage(`Ronde ${round}: Team ${winner} wint! (Stand: ${teamAScore}-${teamBScore})`);
+                    round++;
+                    setTimeout(nextRound, 3000);
+                } else {
+                    logMessage(`Wedstrijd afgelopen! Winnaar: Team ${teamAScore > teamBScore ? 'A' : 'B'}!`);
+                }
+            }
+            nextRound();
         }
 
         function simulateFencing() {
             logMessage("Schermwedstrijd begint!");
-            for (let i = 1; i <= 10; i++) {
-                setTimeout(() => logMessage(`Punt ${i}: Atleet ${Math.ceil(Math.random() * 2)} scoort!`), i * 2000);
-            }
-            setTimeout(() => logMessage("Winnaar bepaald op punten!"), 22000);
+            let scoreA = 0, scoreB = 0;
+            let matchInterval = setInterval(() => {
+                let winner = Math.random() > 0.5 ? 'A' : 'B';
+                if (winner === 'A') scoreA++; else scoreB++;
+                logMessage(`Punt: Team ${winner} scoort! (Stand: ${scoreA}-${scoreB})`);
+                if (scoreA >= 15 || scoreB >= 15) {
+                    clearInterval(matchInterval);
+                    logMessage(`Wedstrijd afgelopen! Winnaar: Team ${scoreA > scoreB ? 'A' : 'B'}!`);
+                }
+            }, 2000);
         }
     </script>
 </body>
