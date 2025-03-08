@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MultisportOnline - Volledige Wedstrijdsimulatie</title>
+    <title>MultisportOnline - Realistische Wedstrijdsimulatie</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,7 +11,7 @@
             background-color: #f4f4f4;
         }
         .container {
-            max-width: 700px;
+            max-width: 800px;
             margin: 50px auto;
             background: white;
             padding: 20px;
@@ -43,10 +43,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>Volledige Wedstrijdsimulatie</h1>
-        <p>Kies een sport en simuleer een realistische wedstrijd:</p>
+        <h1>Realistische Wedstrijdsimulatie</h1>
+        <p>Kies een sport en simuleer een echte wedstrijd:</p>
         <select id="sportSelect">
-            <optgroup label="Atletiek">
+            <optgroup label="Sprint & Loopnummers">
                 <option value="100m">100m Sprint</option>
                 <option value="400m">400m</option>
                 <option value="800m">800m</option>
@@ -111,11 +111,16 @@
             document.getElementById("gameLog").innerHTML = "";
             logMessage(`Start van de ${selectedSport} wedstrijd!`);
             let duration = getDuration(selectedSport);
-            let interval = duration / 5;
-            for (let i = 1; i <= 5; i++) {
-                setTimeout(() => logMessage(`Fase ${i} van de ${selectedSport}...`), i * interval);
-            }
-            setTimeout(() => logMessage(`Winnaar: Atleet ${Math.ceil(Math.random() * 8)}!`), duration);
+            let interval = duration / 10;
+            let progress = 0;
+            let simulation = setInterval(() => {
+                progress += interval;
+                logMessage(`Tussenstand (${Math.round((progress / duration) * 100)}% voltooid)`);
+                if (progress >= duration) {
+                    clearInterval(simulation);
+                    logMessage(`Winnaar: Atleet ${Math.ceil(Math.random() * 8)}!`);
+                }
+            }, interval);
         }
 
         function getDuration(sport) {
