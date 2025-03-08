@@ -52,16 +52,15 @@
                 <option value="800m">800m</option>
                 <option value="1500m">1500m</option>
                 <option value="110m Horden">110m Horden</option>
+                <option value="Marathon">Marathon</option>
+            </optgroup>
+            <optgroup label="Veldsporten">
                 <option value="Hink-stap-springen">Hink-stap-springen</option>
                 <option value="Hoogspringen">Hoogspringen</option>
                 <option value="Polsstokhoogspringen">Polsstokhoogspringen</option>
                 <option value="Verspringen">Verspringen</option>
                 <option value="Discuswerpen">Discuswerpen</option>
                 <option value="Kogelstoten">Kogelstoten</option>
-                <option value="Marathon">Marathon</option>
-            </optgroup>
-            <optgroup label="Gewichtheffen">
-                <option value="Eenarmig">Eenarmig (Open)</option>
             </optgroup>
             <optgroup label="Turnen">
                 <option value="Touwklimmen">Touwklimmen</option>
@@ -81,9 +80,6 @@
                 <option value="Vrij geweer 300m">Vrij geweer 300m</option>
                 <option value="Vrij pistool 50m">Vrij pistool 50m</option>
             </optgroup>
-            <optgroup label="Schoonspringen">
-                <option value="Hoogduiken">Hoogduiken</option>
-            </optgroup>
             <optgroup label="Touwtrekken">
                 <option value="Touwtrekken">Touwtrekken (Best of 3)</option>
             </optgroup>
@@ -92,9 +88,6 @@
                 <option value="10km">10 km</option>
                 <option value="100km">100 km</option>
                 <option value="12 uur">12 uur</option>
-            </optgroup>
-            <optgroup label="Zeilen">
-                <option value="0.5 ton">0,5 ton</option>
             </optgroup>
             <optgroup label="Zwemmen">
                 <option value="100m vrije slag matrozen">100 m vrije slag matrozen</option>
@@ -117,11 +110,19 @@
             let selectedSport = document.getElementById("sportSelect").value;
             document.getElementById("gameLog").innerHTML = "";
             logMessage(`Start van de ${selectedSport} wedstrijd!`);
-            setTimeout(() => logMessage("De atleten bereiden zich voor..."), 1000);
-            setTimeout(() => logMessage("De wedstrijd is begonnen!"), 3000);
-            setTimeout(() => logMessage("Eerste fase van de wedstrijd..."), 5000);
-            setTimeout(() => logMessage("Laatste fase, spanning stijgt!"), 8000);
-            setTimeout(() => logMessage(`Winnaar: Atleet ${Math.ceil(Math.random() * 8)}!`), 11000);
+            let duration = getDuration(selectedSport);
+            let interval = duration / 5;
+            for (let i = 1; i <= 5; i++) {
+                setTimeout(() => logMessage(`Fase ${i} van de ${selectedSport}...`), i * interval);
+            }
+            setTimeout(() => logMessage(`Winnaar: Atleet ${Math.ceil(Math.random() * 8)}!`), duration);
+        }
+
+        function getDuration(sport) {
+            if (sport.includes("100m")) return 10000;
+            if (sport.includes("Marathon")) return 7200000;
+            if (sport.includes("Touwtrekken")) return 30000;
+            return 60000;
         }
     </script>
 </body>
