@@ -67,6 +67,46 @@
                 <option value="110m Horden">110m Horden</option>
                 <option value="Marathon">Marathon</option>
             </optgroup>
+            <optgroup label="Veldsporten">
+                <option value="Hink-stap-springen">Hink-stap-springen</option>
+                <option value="Hoogspringen">Hoogspringen</option>
+                <option value="Polsstokhoogspringen">Polsstokhoogspringen</option>
+                <option value="Verspringen">Verspringen</option>
+                <option value="Discuswerpen">Discuswerpen</option>
+                <option value="Kogelstoten">Kogelstoten</option>
+            </optgroup>
+            <optgroup label="Turnen">
+                <option value="Touwklimmen">Touwklimmen</option>
+                <option value="Knotszwaaien">Knotszwaaien</option>
+                <option value="Indiaanse knotsen">Indiaanse knotsen</option>
+                <option value="Salto's">Salto's</option>
+            </optgroup>
+            <optgroup label="Schermen">
+                <option value="Sabel individueel">Sabel, individueel</option>
+                <option value="Degen leraren">Degen, leraren</option>
+                <option value="Floret leraren">Floret, leraren</option>
+                <option value="Sabel leraren">Sabel, leraren</option>
+            </optgroup>
+            <optgroup label="Schietsport">
+                <option value="Militair pistool 25m">Militair pistool 25m</option>
+                <option value="Militair geweer 200m">Militair geweer 200m</option>
+                <option value="Vrij geweer 300m">Vrij geweer 300m</option>
+                <option value="Vrij pistool 50m">Vrij pistool 50m</option>
+            </optgroup>
+            <optgroup label="Touwtrekken">
+                <option value="Touwtrekken">Touwtrekken (Best of 3)</option>
+            </optgroup>
+            <optgroup label="Wielersport">
+                <option value="Tijdrit 1000m">Tijdrit, 1000m</option>
+                <option value="10km">10 km</option>
+                <option value="100km">100 km</option>
+                <option value="12 uur">12 uur</option>
+            </optgroup>
+            <optgroup label="Zwemmen">
+                <option value="100m vrije slag matrozen">100 m vrije slag matrozen</option>
+                <option value="500m vrije slag">500 m vrije slag</option>
+                <option value="1200m vrije slag">1200 m vrije slag</option>
+            </optgroup>
         </select>
         <button onclick="simulateEvent()">Start Wedstrijd</button>
         <div class="log" id="gameLog"></div>
@@ -109,37 +149,13 @@
                 });
                 atleten.sort((a, b) => b.progress - a.progress);
                 updateLeaderboard(atleten);
-                logMessage(`Tussenstand (${Math.round((progress / duration) * 100)}% voltooid)`);
+                logMessage(`Tussenstand: ${atleten.map(a => `${a.name}: ${a.progress.toFixed(1)}m`).join(' | ')}`);
                 if (progress >= duration) {
                     clearInterval(simulation);
                     logMessage(`Winnaar: ${atleten[0].name}!`);
                     raceInProgress = false;
                 }
             }, interval);
-        }
-
-        function getDuration(sport) {
-            if (sport.includes("100m")) return 10000;
-            if (sport.includes("Marathon")) return 7200000;
-            return 60000;
-        }
-
-        function generateAthletes() {
-            let names = ["Atleet 1", "Atleet 2", "Atleet 3", "Atleet 4", "Atleet 5", "Atleet 6", "Atleet 7", "Atleet 8"];
-            return names.map(name => ({ name, progress: 0 }));
-        }
-
-        function updateLeaderboard(atleten) {
-            let leaderboardBody = document.getElementById("leaderboard").querySelector("tbody");
-            leaderboardBody.innerHTML = "";
-            atleten.forEach((atleet, index) => {
-                let row = `<tr>
-                    <td>${index + 1}</td>
-                    <td>${atleet.name}</td>
-                    <td>${atleet.progress.toFixed(1)} m</td>
-                </tr>`;
-                leaderboardBody.innerHTML += row;
-            });
         }
     </script>
 </body>
