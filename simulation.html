@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultisportOnline - Simulatie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wedstrijdsimulatie</h1>
+        <p>Kies een sport en simuleer een wedstrijd:</p>
+        <select id="sportSelect">
+            <option value="100m Sprint">100m Sprint</option>
+            <option value="Zwemmen 200m">Zwemmen 200m</option>
+            <option value="Turnen">Turnen</option>
+            <option value="Gewichtheffen">Gewichtheffen</option>
+            <option value="Judo">Judo</option>
+        </select>
+        <button onclick="simulateEvent()">Simuleer Wedstrijd</button>
+        <p class="result" id="gameResult"></p>
+    </div>
+
+    <script>
+        const athletes = [
+            { name: "Lukas Müller", rating: 85 },
+            { name: "Sophie Lefevre", rating: 78 },
+            { name: "Kenji Tanaka", rating: 90 },
+            { name: "Carlos Souza", rating: 82 },
+            { name: "Isabela Gomes", rating: 76 }
+        ];
+
+        function simulateEvent() {
+            let selectedSport = document.getElementById("sportSelect").value;
+            let sortedAthletes = athletes.sort((a, b) => (b.rating + Math.random() * 10) - (a.rating + Math.random() * 10));
+            let winner = sortedAthletes[0];
+            document.getElementById("gameResult").innerText = `${selectedSport}: Winnaar - ${winner.name} 🏆`;
+        }
+    </script>
+</body>
+</html>
