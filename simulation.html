@@ -96,6 +96,17 @@
             <optgroup label="Touwtrekken">
                 <option value="Touwtrekken">Touwtrekken (Best of 3)</option>
             </optgroup>
+            <optgroup label="Wielersport">
+                <option value="Tijdrit 1000m">Tijdrit, 1000m</option>
+                <option value="10km">10 km</option>
+                <option value="100km">100 km</option>
+                <option value="12 uur">12 uur</option>
+            </optgroup>
+            <optgroup label="Zwemmen">
+                <option value="100m vrije slag matrozen">100 m vrije slag matrozen</option>
+                <option value="500m vrije slag">500 m vrije slag</option>
+                <option value="1200m vrije slag">1200 m vrije slag</option>
+            </optgroup>
         </select>
         <button onclick="simulateEvent()">Start Wedstrijd</button>
         <div class="log" id="gameLog"></div>
@@ -111,9 +122,9 @@
             </tbody>
         </table>
     </div>
-
     <script>
         let raceInProgress = false;
+
         function logMessage(message) {
             let logDiv = document.getElementById("gameLog");
             logDiv.innerHTML += `<p>${message}</p>`;
@@ -134,28 +145,63 @@
                 "Polsstokhoogspringen": 60000,
                 "Verspringen": 60000,
                 "Discuswerpen": 60000,
-                "Kogelstoten": 60000
+                "Kogelstoten": 60000,
+                "Tijdrit 1000m": 70000,
+                "10km": 1200000,
+                "100km": 3600000,
+                "12 uur": 43200000
             };
             return durations[sport] || 60000;
+        }
+
+        function generateAthletes() {
+            let names = ["Atleet 1", "Atleet 2", "Atleet 3", "Atleet 4", "Atleet 5", "Atleet 6", "Atleet 7", "Atleet 8"];
+            return names.map(name => ({ name, progress: 0 }));
+        }
+
+        function updateLeaderboard(atleten) {
+            let leaderboardBody = document.getElementById("leaderboard").querySelector("tbody");
+            leaderboardBody.innerHTML = "";
+            atleten.forEach((atleet, index) => {
+                let row = `<tr>
+                    <td>${index + 1}</td>
+                    <td>${atleet.name}</td>
+                    <td>${atleet.progress.toFixed(1)} m</td>
+                </tr>`;
+                leaderboardBody.innerHTML += row;
+            });
         }
 
         function simulateEvent() {
             if (raceInProgress) return;
             raceInProgress = true;
+
             let selectedSport = document.getElementById("sportSelect").value;
             document.getElementById("gameLog").innerHTML = "";
             document.getElementById("leaderboard").querySelector("tbody").innerHTML = "";
+
             logMessage(`Start van de ${selectedSport} wedstrijd!`);
+
             let duration = getDuration(selectedSport);
+            let atleten = generateAthletes();
             let interval = duration / 10;
             let progress = 0;
+
             let simulation = setInterval(() => {
                 progress += interval;
-                let distanceCovered = Math.round((progress / duration) * 100);
-                logMessage(`Tussenstand: ${distanceCovered}m afgelegd`);
+
+                atleten.forEach(atleet => {
+                    atleet.progress += Math.random() * (selectedSport.includes("m") ? 10 : 100);
+                });
+
+                atleten.sort((a, b) => b.progress - a.progress);
+                updateLeaderboard(atleten);
+
+                logMessage(`Tussenstand: ${atleten.map(a => `${a.name}: ${a.progress.toFixed(1)}m`).join(' | ')}`);
+
                 if (progress >= duration) {
                     clearInterval(simulation);
-                    logMessage(`Winnaar: Atleet ${Math.ceil(Math.random() * 8)}!`);
+                    logMessage(`🏆 Winnaar: ${atleten[0].name}!`);
                     raceInProgress = false;
                 }
             }, interval);
