@@ -37,6 +37,14 @@
     </style>
 </head>
 <body>
+    <nav>
+        <a href="index.html">🏠 Home</a> |
+        <a href="register.html">📝 Registreren</a> |
+        <a href="login.html">🔑 Inloggen</a> |
+        <a href="logout.html">🚪 Uitloggen</a> |
+        <a href="contact.html">📧 Contact</a> |
+        <a href="uitleg.html">ℹ️ Uitleg</a>
+    </nav>
     <div class="container">
         <h2>Inloggen</h2>
         <p>Log in om je land en atleten te beheren.</p>
@@ -48,27 +56,3 @@
         <p>Heb je nog geen account? <a href="register.html">Registreer hier</a></p>
         <p id="message"></p>
     </div>
-
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            let username = document.getElementById("username").value;
-            let password = document.getElementById("password").value;
-            let storedUser = JSON.parse(sessionStorage.getItem("user"));
-
-            if (!storedUser || storedUser.username !== username || storedUser.password !== password) {
-                document.getElementById("message").textContent = "Ongeldige gebruikersnaam of wachtwoord!";
-                return;
-            }
-
-            sessionStorage.setItem("loggedInUser", JSON.stringify(storedUser));
-            document.getElementById("message").textContent = "Succesvol ingelogd!";
-            
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 2000);
-        });
-    </script>
-</body>
-</html>
