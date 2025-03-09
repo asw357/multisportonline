@@ -18,17 +18,23 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .button {
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
             background-color: #007bff;
             color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 5px;
         }
-        .button:hover {
-            background-color: #0056b3;
+        .warning {
+            color: red;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -40,16 +46,45 @@
 
 <div class="container">
     <h1>Atletenbeheer 👥</h1>
-    <p>Beheer hier je atleten, trainingen en scouting.</p>
+    <p>Bekijk en beheer je atleten per evenement.</p>
 
-    <button class="button" onclick="window.location.href='trainingspagina.html'">💪 Ga naar Training</button>
-    <button class="button" onclick="window.location.href='scouting.html'">🔎 Ga naar Scouting</button>
-
-    <h2>Jouw Atleten</h2>
-    <div id="atletenlijst">
-        <p>Geen atleten beschikbaar.</p>
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Evenement</th>
+                <th>Atleten</th>
+                <th>Max. Limiet</th>
+            </tr>
+        </thead>
+        <tbody id="atletenTabel"></tbody>
+    </table>
 </div>
+<script>
+    let atletenPerEvenement = {
+        "100m Sprint": { aantal: 3, max: 5 },
+        "400m Sprint": { aantal: 2, max: 5 },
+        "Kogelstoten": { aantal: 4, max: 4 },
+        "Touwtrekken": { aantal: 6, max: 8 }
+    };
+
+    function updateAtletenTabel() {
+        let tabelBody = document.getElementById("atletenTabel");
+        tabelBody.innerHTML = "";
+
+        Object.keys(atletenPerEvenement).forEach(event => {
+            let data = atletenPerEvenement[event];
+            let waarschuwing = data.aantal >= data.max ? "⚠️" : "";
+            let rij = `<tr>
+                <td>${event}</td>
+                <td>${data.aantal} ${waarschuwing}</td>
+                <td>${data.max}</td>
+            </tr>`;
+            tabelBody.innerHTML += rij;
+        });
+    }
+
+    window.onload = updateAtletenTabel;
+</script>
 
 </body>
 </html>
