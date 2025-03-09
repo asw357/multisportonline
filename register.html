@@ -11,116 +11,50 @@
             background-color: #f4f4f4;
         }
         .container {
-            max-width: 500px;
+            max-width: 400px;
             margin: 50px auto;
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
+        .button {
             background-color: #007bff;
             color: white;
+            padding: 10px;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
+            margin: 5px;
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">🏠 Home</a> |
-        <a href="register.html">📝 Registreren</a> |
-        <a href="login.html">🔑 Inloggen</a> |
-        <a href="logout.html">🚪 Uitloggen</a> |
-        <a href="contact.html">📧 Contact</a> |
-        <a href="uitleg.html">ℹ️ Uitleg</a>
-    </nav>
-    <div class="container">
-        <h2>Registreren</h2>
-        <p>Maak een account aan en ontvang een land om te beheren!</p>
-        <form id="registerForm">
-            <input type="email" id="email" placeholder="E-mailadres" required>
-            <input type="text" id="username" placeholder="Gebruikersnaam" required>
-            <input type="password" id="password" placeholder="Wachtwoord" required>
-            <button type="submit">Registreer</button>
-        </form>
-        <p id="message"></p>
-    </div>
 
-    <script>
-        let landen = [
-            "Australie", "Bulgarije", "Chili", "Denemarken", "Ijsland", "Duitsland", "Frankrijk",
-            "Griekenland", "Cyprus", "Turkije", "Egypte", "Groot-Brittannie", "Ierland", "Hongarije",
-            "Servie", "Italie", "Oostenrijk", "Verenigde Staten", "Zweden", "Zwitserland", "Argentinie",
-            "Belgie", "Tsjechie", "India", "Pakistan", "Bangladesh", "Myanmar", "Canada", "Cuba",
-            "Mexico", "Nederland", "Noorwegen", "Roemenie", "Rusland", "Spanje", "Haiti", "Iran",
-            "Luxemburg", "Peru", "Zuid Afrika", "Nieuw Zeeland", "Finland", "Japan", "Portugal",
-            "Brazilie", "Estland", "Kroatie", "Slovenie", "Bosnie en Herzegovina", "Kosovo",
-            "Montenegro", "Noord-Macedonie", "Monaco", "Slowakije", "Letland", "Polen", "Ecuador",
-            "De Filipijnen", "Litouwen", "Uruguay", "Malta", "Panama", "Zimbabwe", "Colombia",
-            "Chinees Taipei", "Liechtenstein", "Afghanistan", "Bermuda", "Bolivia", "Costa Rica",
-            "Libanon", "Zuid Korea", "Guyana", "Sri Lanka", "Irak", "Jamaica", "Puerto Rico",
-            "Singapore", "Syrie", "Trinidad en Tobago", "Venezuela", "De Bahama's", "China", "Ghana",
-            "Guatemala", "Hongkong", "Indonesie", "Israel", "Nigeria", "Wit-Rusland", "Oekraine",
-            "Moldavie", "Georgie", "Armenie", "Azerbeidzjan", "Kazachstan", "Oezbekistan",
-            "Turkmenistan", "Kirgizie", "Tadzjikistan", "Thailand", "Vietnam", "Ethiopie", "Fiji",
-            "Kenia", "Liberia", "Maleisie", "Oeganda", "Suriname", "Marokko", "San Marino", "Soedan",
-            "Tunesie", "Barbados", "Antigua en Barbuda", "Kaaimaneilanden", "Dominica", "Grenada",
-            "Saint Kitts en Nevis", "Saint Lucia", "Saint Vincent en de Grenadines", "Mongolie",
-            "Noord Korea", "Algerije", "Congo-Brazzaville", "Dominicaanse Republiek", "Ivoorkust",
-            "Libie", "Kameroen", "Madagaskar", "Mali", "Nepal", "Niger", "Zambia", "Senegal",
-            "Tanzania", "Tsjaad", "Amerikaanse Maagdeneilanden", "Belize", "Centraal-Afrikaanse Republiek",
-            "Congo-Kinshasa", "El Salvador", "Guinee", "Honduras", "Koeweit", "Nicaragua", "Paraguay",
-            "Sierra Leone", "Albanie", "Benin", "Gabon", "Lesotho", "Malawi", "Burkina Faso",
-            "Saoedi-Arabie", "Somalie", "Swaziland", "Togo", "Andorra", "Papoea-Nieuw-Guinea", "Angola",
-            "Botswana", "Jordanie", "Laos", "Mozambique", "De Seychellen", "Bahrein", "Bhutan",
-            "Britse Maagdeneilanden", "Djibouti", "Equatoriaal-Guinea", "Gambia", "Mauritanie",
-            "Mauritius", "Jemen", "Oman", "Qatar", "Rwanda", "Salomonseilanden", "Samoa", "Tonga",
-            "VAE", "Guam", "Aruba", "Amerikaans-Samoa", "Cookeilanden", "Maldiven", "Vanuatu", "Brunei",
-            "Namibie", "Burundi", "Comoren", "Guinea-Bissau", "Kaapverdie", "Nauru", "Palestina",
-            "Sao Tome en Principe", "Micronesia", "Palau", "Oost-Timor", "Kiribati", "Marshalleilanden",
-            "Tuvalu", "Zuid-Soedan", "Vaticaanstad"
-        ];
+<div class="container">
+    <h1>Registreren</h1>
+    <form id="registerForm">
+        <input type="text" id="username" placeholder="Gebruikersnaam" required><br><br>
+        <input type="email" id="email" placeholder="E-mail" required><br><br>
+        <input type="password" id="password" placeholder="Wachtwoord" required><br><br>
+        <button type="button" class="button" onclick="registreer()">Registreren</button>
+    </form>
+    <p>Heb je al een account? <a href="login.html">Log hier in</a></p>
+</div>
 
-        document.getElementById("registerForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+<script>
+    function registreer() {
+        let gebruikersnaam = document.getElementById("username").value;
+        let email = document.getElementById("email").value;
 
-            let email = document.getElementById("email").value;
-            let username = document.getElementById("username").value;
-            let password = document.getElementById("password").value;
+        if (gebruikersnaam && email) {
+            alert("Registratie succesvol! Je land wordt toegewezen...");
+            window.location.href = "manager.html";
+        } else {
+            alert("Vul alle velden in!");
+        }
+    }
+</script>
 
-            if (!email || !username || !password) {
-                document.getElementById("message").textContent = "Vul alle velden in!";
-                return;
-            }
-
-            if (landen.length === 0) {
-                document.getElementById("message").textContent = "Alle landen zijn al bezet!";
-                return;
-            }
-
-            let toegewezenLand = landen.shift();
-            let spelerData = { email, username, password, land: toegewezenLand };
-
-            sessionStorage.setItem("user", JSON.stringify(spelerData));
-
-            document.getElementById("message").innerHTML = 
-                `Je bent geregistreerd! <br><strong>Jouw land: ${toegewezenLand}</strong>`;
-            
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 4000);
-        });
-    </script>
 </body>
 </html>
