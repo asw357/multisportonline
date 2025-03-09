@@ -78,12 +78,39 @@
     let sporten = [
         { sport: "Atletiek", evenement: "100m Sprint", aantal: 3 },
         { sport: "Atletiek", evenement: "400m", aantal: 3 },
+        { sport: "Atletiek", evenement: "800m", aantal: 3 },
+        { sport: "Atletiek", evenement: "1500m", aantal: 3 },
+        { sport: "Atletiek", evenement: "110m Horden", aantal: 3 },
+        { sport: "Atletiek", evenement: "Hink-stap-springen", aantal: 3 },
+        { sport: "Atletiek", evenement: "Hoogspringen", aantal: 3 },
+        { sport: "Atletiek", evenement: "Polsstokhoogspringen", aantal: 3 },
+        { sport: "Atletiek", evenement: "Verspringen", aantal: 3 },
+        { sport: "Atletiek", evenement: "Discuswerpen", aantal: 3 },
+        { sport: "Atletiek", evenement: "Kogelstoten", aantal: 3 },
         { sport: "Atletiek", evenement: "Marathon", aantal: 3 },
-        { sport: "Zwemmen", evenement: "100m Vrije Slag", aantal: 3 },
         { sport: "Gewichtheffen", evenement: "Eenarmig (Open)", aantal: 3 },
+        { sport: "Turnen", evenement: "Touwklimmen", aantal: 3 },
+        { sport: "Turnen", evenement: "Knotszwaaien", aantal: 3 },
+        { sport: "Turnen", evenement: "Indiaanse knotsen", aantal: 3 },
+        { sport: "Turnen", evenement: "Salto's", aantal: 3 },
+        { sport: "Schermen", evenement: "Sabel, individueel", aantal: 3 },
+        { sport: "Schermen", evenement: "Degen, leraren", aantal: 3 },
+        { sport: "Schermen", evenement: "Floret, leraren", aantal: 3 },
+        { sport: "Schermen", evenement: "Sabel, leraren", aantal: 3 },
+        { sport: "Schietsport", evenement: "Militair pistool 25m", aantal: 3 },
+        { sport: "Schietsport", evenement: "Militair geweer 200m", aantal: 3 },
+        { sport: "Schietsport", evenement: "Vrij geweer 300m", aantal: 3 },
+        { sport: "Schietsport", evenement: "Vrij pistool 50m", aantal: 3 },
         { sport: "Schoonspringen", evenement: "Hoogduiken", aantal: 3 },
         { sport: "Touwtrekken", evenement: "Teamwedstrijd", aantal: 9 },
-        { sport: "Zeilen", evenement: "0,5 ton", aantal: 4 }
+        { sport: "Wielersport", evenement: "Tijdrit, 1000m", aantal: 3 },
+        { sport: "Wielersport", evenement: "10 km", aantal: 3 },
+        { sport: "Wielersport", evenement: "100 km", aantal: 3 },
+        { sport: "Wielersport", evenement: "12 uur", aantal: 3 },
+        { sport: "Zeilen", evenement: "0,5 ton", aantal: 2 }, // 2 boten, 2-3 atleten per boot
+        { sport: "Zwemmen", evenement: "100m vrije slag matrozen", aantal: 3 },
+        { sport: "Zwemmen", evenement: "500m vrije slag", aantal: 3 },
+        { sport: "Zwemmen", evenement: "1200m vrije slag", aantal: 3 }
     ];
 
     function genereerAtleten() {
@@ -121,80 +148,3 @@
 
         toonAtleten(atleten);
     }
-    function toonAtleten(atleten) {
-        let container = document.getElementById("atletenContainer");
-        container.innerHTML = "";
-        document.getElementById("mpSaldo").textContent = mpSaldo;
-
-        let sportGroepen = {};
-        atleten.forEach(atleet => {
-            if (!sportGroepen[atleet.sport]) {
-                sportGroepen[atleet.sport] = {};
-            }
-            if (!sportGroepen[atleet.sport][atleet.evenement]) {
-                sportGroepen[atleet.sport][atleet.evenement] = [];
-            }
-            sportGroepen[atleet.sport][atleet.evenement].push(atleet);
-        });
-
-        Object.keys(sportGroepen).forEach(sport => {
-            let sportTitel = document.createElement("h2");
-            sportTitel.classList.add("sport-titel");
-            sportTitel.textContent = sport;
-            container.appendChild(sportTitel);
-
-            Object.keys(sportGroepen[sport]).forEach(evenement => {
-                let eventTitel = document.createElement("h3");
-                eventTitel.textContent = evenement;
-                container.appendChild(eventTitel);
-
-                let table = document.createElement("table");
-                table.innerHTML = `
-                    <thead>
-                        <tr>
-                            <th>Naam</th>
-                            <th>Snelheid</th>
-                            <th>Kracht</th>
-                            <th>Techniek</th>
-                            <th>Uithoudingsvermogen</th>
-                            <th>Actie</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                `;
-
-                let tbody = table.querySelector("tbody");
-                sportGroepen[sport][evenement].forEach((atleet, index) => {
-                    let rij = `<tr>
-                        <td>${atleet.naam}</td>
-                        <td>${atleet.snelheid}</td>
-                        <td>${atleet.kracht}</td>
-                        <td>${atleet.techniek}</td>
-                        <td>${atleet.uithoudingsvermogen}</td>
-                        <td><button class="btn-ontslaan" onclick="ontslaan(${index})">❌ -10 MP</button></td>
-                    </tr>`;
-                    tbody.innerHTML += rij;
-                });
-
-                container.appendChild(table);
-            });
-        });
-    }
-
-    function ontslaan(index) {
-        if (mpSaldo < 10) {
-            alert("Je hebt niet genoeg MP om een atleet te ontslaan!");
-            return;
-        }
-        if (!confirm("Weet je zeker dat je deze atleet wilt ontslaan? Dit kost 10 MP.")) return;
-        let atleten = JSON.parse(localStorage.getItem("atleten"));
-        atleten.splice(index, 1);
-        localStorage.setItem("atleten", JSON.stringify(atleten));
-        mpSaldo -= 10;
-        localStorage.setItem("medalPoints", mpSaldo);
-        toonAtleten(atleten);
-    }
-
-    window.onload = genereerAtleten;
-</script>
