@@ -110,4 +110,17 @@
             }
 
             let toegewezenLand = landen.shift();
-            let spelerData = { email, username, password, land: toege
+            let spelerData = { email, username, password, land: toegewezenLand };
+
+            sessionStorage.setItem("user", JSON.stringify(spelerData));
+
+            document.getElementById("message").innerHTML = 
+                `Je bent geregistreerd! <br><strong>Jouw land: ${toegewezenLand}</strong>`;
+            
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 4000);
+        });
+    </script>
+</body>
+</html>
