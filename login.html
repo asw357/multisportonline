@@ -11,71 +11,48 @@
             background-color: #f4f4f4;
         }
         .container {
-            max-width: 500px;
+            max-width: 400px;
             margin: 50px auto;
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
+        .button {
             background-color: #007bff;
             color: white;
+            padding: 10px;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
+            margin: 5px;
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">🏠 Home</a> |
-        <a href="register.html">📝 Registreren</a> |
-        <a href="login.html">🔑 Inloggen</a> |
-        <a href="logout.html">🚪 Uitloggen</a> |
-        <a href="contact.html">📧 Contact</a> |
-        <a href="uitleg.html">ℹ️ Uitleg</a>
-    </nav>
-    <div class="container">
-        <h2>Inloggen</h2>
-        <p>Log in om je land en atleten te beheren.</p>
-        <form id="loginForm">
-            <input type="text" id="username" placeholder="Gebruikersnaam" required>
-            <input type="password" id="password" placeholder="Wachtwoord" required>
-            <button type="submit">Inloggen</button>
-        </form>
-        <p>Heb je nog geen account? <a href="register.html">Registreer hier</a></p>
-        <p id="message"></p>
-    </div>
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault();
 
-            let username = document.getElementById("username").value;
-            let password = document.getElementById("password").value;
-            let storedUser = JSON.parse(sessionStorage.getItem("user"));
+<div class="container">
+    <h1>Inloggen</h1>
+    <form id="loginForm">
+        <input type="text" id="username" placeholder="Gebruikersnaam" required><br><br>
+        <input type="password" id="password" placeholder="Wachtwoord" required><br><br>
+        <button type="button" class="button" onclick="login()">Inloggen</button>
+    </form>
+    <p>Heb je nog geen account? <a href="register.html">Registreer hier</a></p>
+</div>
 
-            if (!storedUser || storedUser.username !== username || storedUser.password !== password) {
-                document.getElementById("message").textContent = "Ongeldige gebruikersnaam of wachtwoord!";
-                return;
-            }
+<script>
+    function login() {
+        let gebruikersnaam = document.getElementById("username").value;
 
-            sessionStorage.setItem("loggedInUser", JSON.stringify(storedUser));
-            document.getElementById("message").textContent = "Succesvol ingelogd!";
-            
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 2000);
-        });
-    </script>
+        if (gebruikersnaam) {
+            alert("Inloggen succesvol! Je wordt doorgestuurd naar de Managerpagina.");
+            window.location.href = "manager.html";
+        } else {
+            alert("Vul alle velden in!");
+        }
+    }
+</script>
+
 </body>
 </html>
