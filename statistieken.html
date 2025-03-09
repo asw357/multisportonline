@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistieken - MultisportOnline</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <a href="index.html">🏠 Home</a>
+    <a href="manager.html">👤 Manager</a>
+</div>
+
+<div class="container">
+    <h1>Statistieken 📊</h1>
+    <p>Bekijk de beste prestaties en records.</p>
+
+    <select id="editieSelect">
+        <option value="editie1">Zomereditie 1</option>
+        <option value="editie2">Zomereditie 2</option>
+    </select>
+
+    <button onclick="toonStatistieken()">Bekijk Editie</button>
+
+    <h2>Resultaten 📋</h2>
+    <div id="statistieken">
+        <p>Selecteer een editie om gegevens te bekijken.</p>
+    </div>
+</div>
