@@ -11,61 +11,27 @@
             background-color: #f4f4f4;
         }
         .container {
-            max-width: 500px;
+            max-width: 400px;
             margin: 50px auto;
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        button {
-            background-color: #d9534f;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #c9302c;
-        }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">🏠 Home</a> |
-        <a href="register.html">📝 Registreren</a> |
-        <a href="login.html">🔑 Inloggen</a> |
-        <a href="logout.html">🚪 Uitloggen</a> |
-        <a href="contact.html">📧 Contact</a> |
-        <a href="uitleg.html">ℹ️ Uitleg</a>
-    </nav>
-    <div class="container">
-        <h2>Uitloggen</h2>
-        <p>Weet je zeker dat je wilt uitloggen?</p>
-        <button onclick="logout()">Uitloggen</button>
-        <p id="message"></p>
-    </div>
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault();
 
-            let username = document.getElementById("username").value;
-            let password = document.getElementById("password").value;
-            let storedUser = JSON.parse(sessionStorage.getItem("user"));
+<div class="container">
+    <h1>Uitloggen...</h1>
+    <p>Je wordt uitgelogd en teruggestuurd naar de Homepagina.</p>
+</div>
 
-            if (!storedUser || storedUser.username !== username || storedUser.password !== password) {
-                document.getElementById("message").textContent = "Ongeldige gebruikersnaam of wachtwoord!";
-                return;
-            }
+<script>
+    setTimeout(function() {
+        window.location.href = "index.html";
+    }, 2000);
+</script>
 
-            sessionStorage.setItem("loggedInUser", JSON.stringify(storedUser));
-            document.getElementById("message").textContent = "Succesvol ingelogd!";
-            
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 2000);
-        });
-    </script>
 </body>
 </html>
