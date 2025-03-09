@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MultisportOnline - Testversie</title>
+    <title>MultisportOnline - Home</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,115 +11,51 @@
             background-color: #f4f4f4;
         }
         .container {
-            max-width: 500px;
+            max-width: 800px;
             margin: 50px auto;
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .nav {
+            margin-bottom: 20px;
+        }
+        .nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .nav a:hover {
+            text-decoration: underline;
         }
         button {
-            background-color: #28a745;
+            background-color: #007bff;
             color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            margin-top: 10px;
         }
         button:hover {
-            background-color: #218838;
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>MultisportOnline - Testversie</h1>
-        <p>Schrijf je in om een land toegewezen te krijgen!</p>
-        <input type="text" id="email" placeholder="Voer je e-mailadres in">
-        <input type="text" id="username" placeholder="Voer je gebruikersnaam in">
-        <button onclick="registerPlayer()">Inschrijven</button>
-        <a href="simulation.html">
-    <button>Ga naar Wedstrijdsimulatie</button>
-        </a>
-        <p id="result"></p>
-        <h3>Jouw atleten</h3>
-        <div id="athletes"></div>
-        <h3>Train je atleten (kost 10 MP)</h3>
-        <button onclick="trainAthlete()">Train willekeurige atleet</button>
-        <p id="mp">MedalPoints: 50</p>
-        <h3>Simuleer een sportevenement</h3>
-        <button onclick="simulateGame()">Speel een wedstrijd</button>
-        <p id="gameResult"></p>
+        <h1>Welkom bij MultisportOnline!</h1>
+        <div class="nav">
+            <a href="register.html">Registreren</a>
+            <a href="login.html">Inloggen</a>
+            <a href="simulation.html">Simulatie</a>
+            <a href="contact.html">Contact</a>
+            <a href="uitleg.html">Uitleg</a>
+        </div>
+        <p>MultisportOnline is een online managementspel waarin je jouw land vertegenwoordigt en atleten traint om mee te doen aan competities.</p>
+        <button onclick="location.href='register.html'">Start nu met spelen!</button>
     </div>
-
-    <script>
-        const countries = ["Australië", "Bulgarije", "Chili", "Denemarken", "IJsland"];
-        const firstNames = ["Lukas", "Sophie", "Kenji", "Carlos", "Isabela"];
-        const lastNames = ["Müller", "Lefevre", "Tanaka", "Souza", "Gomes"];
-        const sports = ["100m Sprint", "Zwemmen 200m", "Turnen", "Gewichtheffen", "Judo"];
-        let assignedCountries = [];
-        let mp = 50;
-        let athletes = [];
-
-        function registerPlayer() {
-            const email = document.getElementById('email').value;
-            const username = document.getElementById('username').value;
-            if (email.trim() === "" || username.trim() === "") {
-                document.getElementById('result').innerText = "Voer een geldige e-mail en gebruikersnaam in!";
-                return;
-            }
-            if (assignedCountries.length >= countries.length) {
-                document.getElementById('result').innerText = "Alle landen zijn al toegewezen!";
-                return;
-            }
-            
-            const assignedCountry = countries[assignedCountries.length];
-            assignedCountries.push(assignedCountry);
-            document.getElementById('result').innerHTML = `<strong>${username}</strong>, jouw land is: <strong>${assignedCountry}</strong>`;
-            generateAthletes();
-        }
-        
-        function generateAthletes() {
-            athletes = [];
-            for (let i = 0; i < 3; i++) {
-                let firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-                let lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-                let sport = sports[Math.floor(Math.random() * sports.length)];
-                let rating = Math.floor(Math.random() * 100) + 1;
-                athletes.push({ name: `${firstName} ${lastName}`, sport: sport, rating: rating });
-            }
-            displayAthletes();
-        }
-        
-        function displayAthletes() {
-            let athletesDiv = document.getElementById('athletes');
-            athletesDiv.innerHTML = "";
-            athletes.forEach(athlete => {
-                athletesDiv.innerHTML += `<p>${athlete.name} - ${athlete.sport} - Rating: ${athlete.rating}</p>`;
-            });
-        }
-        
-        function trainAthlete() {
-            if (mp < 10) {
-                alert("Niet genoeg MP om te trainen!");
-                return;
-            }
-            let athlete = athletes[Math.floor(Math.random() * athletes.length)];
-            athlete.rating += Math.floor(Math.random() * 5) + 1;
-            mp -= 10;
-            document.getElementById('mp').innerText = `MedalPoints: ${mp}`;
-            displayAthletes();
-        }
-        
-        function simulateGame() {
-            let event = sports[Math.floor(Math.random() * sports.length)];
-            let winner = athletes[Math.floor(Math.random() * athletes.length)];
-            document.getElementById('gameResult').innerText = `${event}: Winnaar - ${winner.name} 🏆`;
-        }
-    </script>
 </body>
 </html>
