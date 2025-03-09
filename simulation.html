@@ -87,3 +87,44 @@
                 <option value="Indiaanse knotsen" data-type="score">Indiaanse knotsen</option>
                 <option value="Salto's" data-type="score">Salto's</option>
             </optgroup>
+            <optgroup label="Schermen">
+                <option value="Sabel individueel" data-type="score">Sabel, individueel</option>
+                <option value="Degen leraren" data-type="score">Degen, leraren</option>
+                <option value="Floret leraren" data-type="score">Floret, leraren</option>
+                <option value="Sabel leraren" data-type="score">Sabel, leraren</option>
+            </optgroup>
+            <optgroup label="Schietsport">
+                <option value="Militair pistool 25m" data-type="score">Militair pistool 25m</option>
+                <option value="Militair geweer 200m" data-type="score">Militair geweer 200m</option>
+                <option value="Vrij geweer 300m" data-type="score">Vrij geweer 300m</option>
+                <option value="Vrij pistool 50m" data-type="score">Vrij pistool 50m</option>
+            </optgroup>
+            <optgroup label="Touwtrekken">
+                <option value="Touwtrekken" data-type="score">Touwtrekken</option>
+            </optgroup>
+            <optgroup label="Wielersport">
+                <option value="Tijdrit 1000m" data-type="time">Tijdrit, 1000m</option>
+                <option value="10km" data-type="time">10 km</option>
+                <option value="100km" data-type="time">100 km</option>
+                <option value="12 uur" data-type="time">12 uur</option>
+            </optgroup>
+            <optgroup label="Zwemmen">
+                <option value="100m vrije slag matrozen" data-type="time">100 m vrije slag matrozen</option>
+                <option value="500m vrije slag" data-type="time">500 m vrije slag</option>
+                <option value="1200m vrije slag" data-type="time">1200 m vrije slag</option>
+            </optgroup>
+        </select>
+        <button onclick="simulateEvent()">Start Wedstrijd</button>
+        <div class="log" id="gameLog"></div>
+        <table class="leaderboard" id="leaderboard">
+            <thead>
+                <tr>
+                    <th>Positie</th>
+                    <th>Atleet</th>
+                    <th id="scoreHeader">Score/Afstand/Tijd</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
