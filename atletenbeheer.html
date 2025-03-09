@@ -32,10 +32,6 @@
             background-color: #007bff;
             color: white;
         }
-        .warning {
-            color: red;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
@@ -51,39 +47,73 @@
     <table>
         <thead>
             <tr>
+                <th>Naam</th>
+                <th>Sport</th>
                 <th>Evenement</th>
-                <th>Atleten</th>
-                <th>Max. Limiet</th>
             </tr>
         </thead>
         <tbody id="atletenTabel"></tbody>
     </table>
 </div>
 <script>
-    let atletenPerEvenement = {
-        "100m Sprint": { aantal: 3, max: 5 },
-        "400m Sprint": { aantal: 2, max: 5 },
-        "Kogelstoten": { aantal: 4, max: 4 },
-        "Touwtrekken": { aantal: 6, max: 8 }
+    let land = localStorage.getItem("mijnLand") || "Onbekend";
+
+    let namenPerLand = {
+        "Nederland": ["Jansen", "Van Dijk", "De Vries", "Bos", "Smits"],
+        "Frankrijk": ["Lefevre", "Moreau", "Dubois", "Fontaine", "Gauthier"],
+        "Duitsland": ["Müller", "Schmidt", "Schneider", "Fischer", "Weber"],
+        "Italië": ["Rossi", "Bianchi", "Romano", "Moretti", "Lombardi"],
+        "Spanje": ["Garcia", "Lopez", "Martinez", "Fernandez", "Gomez"],
+        "Verenigde Staten": ["Smith", "Johnson", "Williams", "Brown", "Jones"]
     };
 
-    function updateAtletenTabel() {
+    let sporten = [
+        { sport: "Atletiek", evenement: "100m Sprint" },
+        { sport: "Atletiek", evenement: "400m" },
+        { sport: "Zwemmen", evenement: "100m Vrije Slag" },
+        { sport: "Gewichtheffen", evenement: "Eenarmig (Open)" },
+        { sport: "Schoonspringen", evenement: "Hoogduiken" },
+        { sport: "Touwtrekken", evenement: "Teamwedstrijd" }
+    ];
+
+    function genereerAtleten() {
+        let atleten = JSON.parse(localStorage.getItem("atleten")) || [];
+
+        if (atleten.length === 0) {
+            let beschikbareNamen = namenPerLand[land] || ["Doe", "Smith", "Lee", "Patel", "Nguyen"];
+            
+            for (let i = 0; i < 3; i++) {
+                let naam = beschikbareNamen[Math.floor(Math.random() * beschikbareNamen.length)];
+                let gekozenSport = sporten[i % sporten.length];
+
+                atleten.push({
+                    naam: naam,
+                    sport: gekozenSport.sport,
+                    evenement: gekozenSport.evenement
+                });
+            }
+
+            localStorage.setItem("atleten", JSON.stringify(atleten));
+        }
+
+        toonAtleten(atleten);
+    }
+
+    function toonAtleten(atleten) {
         let tabelBody = document.getElementById("atletenTabel");
         tabelBody.innerHTML = "";
 
-        Object.keys(atletenPerEvenement).forEach(event => {
-            let data = atletenPerEvenement[event];
-            let waarschuwing = data.aantal >= data.max ? "⚠️" : "";
+        atleten.forEach(atleet => {
             let rij = `<tr>
-                <td>${event}</td>
-                <td>${data.aantal} ${waarschuwing}</td>
-                <td>${data.max}</td>
+                <td>${atleet.naam}</td>
+                <td>${atleet.sport}</td>
+                <td>${atleet.evenement}</td>
             </tr>`;
             tabelBody.innerHTML += rij;
         });
     }
 
-    window.onload = updateAtletenTabel;
+    window.onload = genereerAtleten;
 </script>
 
 </body>
