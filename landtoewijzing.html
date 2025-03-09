@@ -18,101 +18,49 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
+        .button {
             background-color: #007bff;
             color: white;
-        }
-        button {
-            background-color: #28a745;
-            color: white;
-            padding: 5px;
+            padding: 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-top: 10px;
         }
-        button:hover {
-            background-color: #218838;
+        .button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Spelers een land toewijzen</h2>
-        <p>Hier zie je welke landen zijn toegewezen aan welke spelers.</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Speler</th>
-                    <th>Land</th>
-                </tr>
-            </thead>
-            <tbody id="landTable">
-                <!-- Spelers en landen worden hier geladen -->
-            </tbody>
-        </table>
-    </div>
-    <script>
-        let landen = [
-            "Australie", "Bulgarije", "Chili", "Denemarken", "Ijsland", "Duitsland", "Frankrijk",
-            "Griekenland", "Cyprus", "Turkije", "Egypte", "Groot-Brittannie", "Ierland", "Hongarije",
-            "Servie", "Italie", "Oostenrijk", "Verenigde Staten", "Zweden", "Zwitserland", "Argentinie",
-            "Belgie", "Tsjechie", "India", "Pakistan", "Bangladesh", "Myanmar", "Canada", "Cuba",
-            "Mexico", "Nederland", "Noorwegen", "Roemenie", "Rusland", "Spanje", "Haiti", "Iran",
-            "Luxemburg", "Peru", "Zuid Afrika", "Nieuw Zeeland", "Finland", "Japan", "Portugal",
-            "Brazilie", "Estland", "Kroatie", "Slovenie", "Bosnie en Herzegovina", "Kosovo",
-            "Montenegro", "Noord-Macedonie", "Monaco", "Slowakije", "Letland", "Polen", "Ecuador"
-        ];
 
-        let spelers = JSON.parse(sessionStorage.getItem("spelers")) || [];
+<div class="nav">
+    <a href="index.html">🏠 Home</a>
+</div>
 
-        function geefLand(speler) {
-            if (landen.length === 0) {
-                alert("Geen landen meer beschikbaar!");
-                return null;
-            }
-            return landen.shift();
-        }
+<div class="container">
+    <h1>Landtoewijzing 🌍</h1>
+    <p>Je bent geregistreerd! Je krijgt een land toegewezen...</p>
 
-        function laadSpelers() {
-            let tableBody = document.getElementById("landTable");
-            tableBody.innerHTML = "";
+    <h2>Jouw land: <span id="toegewezenLand">⏳ Bezig met laden...</span></h2>
 
-            spelers.forEach(speler => {
-                let row = `<tr>
-                    <td>${speler.naam}</td>
-                    <td>${speler.land}</td>
-                </tr>`;
-                tableBody.innerHTML += row;
-            });
-        }
-        function nieuweSpeler(naam) {
-            let toegewezenLand = geefLand(naam);
-            if (toegewezenLand) {
-                let speler = { naam, land: toegewezenLand };
-                spelers.push(speler);
-                sessionStorage.setItem("spelers", JSON.stringify(spelers));
-                laadSpelers();
-            }
-        }
+    <button class="button" onclick="window.location.href='manager.html'">Ga naar Managerpagina</button>
+</div>
 
-        // Voor testdoeleinden een paar spelers aanmaken
-        if (spelers.length === 0) {
-            nieuweSpeler("Speler1");
-            nieuweSpeler("Speler2");
-            nieuweSpeler("Speler3");
-        }
+<script>
+    let landen = [
+        "Australië", "Bulgarije", "Chili", "Denemarken", "IJsland", 
+        "Duitsland", "Frankrijk", "Griekenland", "Canada", "Japan"
+    ];
 
-        window.onload = laadSpelers;
-    </script>
+    function kiesLand() {
+        let toegewezenLand = landen[Math.floor(Math.random() * landen.length)];
+        document.getElementById("toegewezenLand").textContent = toegewezenLand;
+        localStorage.setItem("mijnLand", toegewezenLand);
+    }
+
+    window.onload = kiesLand;
+</script>
+
 </body>
 </html>
