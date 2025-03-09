@@ -11,68 +11,47 @@
             background-color: #f4f4f4;
         }
         .container {
-            max-width: 500px;
+            max-width: 600px;
             margin: 50px auto;
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        input, textarea, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
+        .button {
             background-color: #007bff;
             color: white;
+            padding: 10px;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
+            margin-top: 10px;
         }
-        button:hover {
+        .button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">🏠 Home</a> |
-        <a href="register.html">📝 Registreren</a> |
-        <a href="login.html">🔑 Inloggen</a> |
-        <a href="logout.html">🚪 Uitloggen</a> |
-        <a href="contact.html">📧 Contact</a> |
-        <a href="uitleg.html">ℹ️ Uitleg</a>
-    </nav>
-    <div class="container">
-        <h2>Contacteer ons</h2>
-        <p>Heb je vragen of feedback? Laat het ons weten!</p>
-        <form id="contactForm">
-            <input type="text" id="name" placeholder="Naam" required>
-            <input type="email" id="email" placeholder="E-mailadres" required>
-            <textarea id="message" placeholder="Jouw bericht" rows="5" required></textarea>
-            <button type="submit">Verstuur</button>
-        </form>
-        <p id="responseMessage"></p>
-    </div>
-    <script>
-        document.getElementById("contactForm").addEventListener("submit", function(event) {
-            event.preventDefault();
 
-            let name = document.getElementById("name").value;
-            let email = document.getElementById("email").value;
-            let message = document.getElementById("message").value;
+<div class="nav">
+    <a href="index.html">🏠 Home</a>
+</div>
 
-            if (!name || !email || !message) {
-                document.getElementById("responseMessage").textContent = "Vul alle velden in!";
-                return;
-            }
+<div class="container">
+    <h1>Contact</h1>
+    <p>Heb je vragen of suggesties? Neem contact met ons op!</p>
+    
+    <form>
+        <input type="text" placeholder="Je naam" required><br><br>
+        <input type="email" placeholder="Je e-mail" required><br><br>
+        <textarea placeholder="Je bericht" rows="5" required></textarea><br><br>
+        <button type="submit" class="button">Verstuur</button>
+    </form>
 
-            document.getElementById("responseMessage").textContent = 
-                "Bedankt voor je bericht! We nemen zo snel mogelijk contact met je op.";
-            document.getElementById("contactForm").reset();
-        });
-    </script>
+    <h2>Of stuur een e-mail:</h2>
+    <p>✉️ support@multisportonline.com</p>
+</div>
+
 </body>
 </html>
