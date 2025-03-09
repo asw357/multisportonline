@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MultisportOnline - Realistische Wedstrijdsimulatie</title>
+    <title>Wedstrijd Simulatie - MultisportOnline</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,228 +18,85 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        button {
+        .button {
             background-color: #007bff;
             color: white;
             padding: 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin: 10px;
+            margin: 5px;
         }
-        button:hover {
+        .button:hover {
             background-color: #0056b3;
         }
         .log {
             text-align: left;
-            max-height: 400px;
+            max-height: 300px;
             overflow-y: scroll;
             border: 1px solid #ccc;
             padding: 10px;
             background: #f9f9f9;
             margin-top: 10px;
         }
-        .leaderboard {
-            margin-top: 20px;
-            border-collapse: collapse;
-            width: 100%;
-        }
-        .leaderboard th, .leaderboard td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        .leaderboard th {
-            background-color: #007bff;
-            color: white;
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Realistische Wedstrijdsimulatie</h1>
-        <p>Kies een sport en simuleer een echte wedstrijd:</p>
-        <select id="sportSelect">
-            <optgroup label="Gewichtheffen">
-                <option value="Eenarmig (Open)" data-type="score">Eenarmig (Open)</option>
-            </optgroup>
-            <optgroup label="Schoonspringen">
-                <option value="Hoogduiken" data-type="score">Hoogduiken</option>
-            </optgroup>
-            <optgroup label="Atletiek - Sprint & Loopnummers">
-                <option value="100m" data-type="time">100m Sprint</option>
-                <option value="400m" data-type="time">400m</option>
-                <option value="800m" data-type="time">800m</option>
-                <option value="1500m" data-type="time">1500m</option>
-                <option value="110m Horden" data-type="time">110m Horden</option>
-                <option value="Marathon" data-type="time">Marathon</option>
-            </optgroup>
-            <optgroup label="Atletiek - Veldsporten">
-                <option value="Hink-stap-springen" data-type="distance">Hink-stap-springen</option>
-                <option value="Hoogspringen" data-type="distance">Hoogspringen</option>
-                <option value="Polsstokhoogspringen" data-type="distance">Polsstokhoogspringen</option>
-                <option value="Verspringen" data-type="distance">Verspringen</option>
-                <option value="Discuswerpen" data-type="distance">Discuswerpen</option>
-                <option value="Kogelstoten" data-type="distance">Kogelstoten</option>
-            </optgroup>
-            <optgroup label="Turnen">
-                <option value="Touwklimmen" data-type="time">Touwklimmen (60m)</option>
-                <option value="Knotszwaaien" data-type="score">Knotszwaaien</option>
-                <option value="Indiaanse knotsen" data-type="score">Indiaanse knotsen</option>
-                <option value="Salto's" data-type="score">Salto's</option>
-            </optgroup>
-            <optgroup label="Schermen">
-                <option value="Sabel individueel" data-type="score">Sabel, individueel</option>
-                <option value="Degen leraren" data-type="score">Degen, leraren</option>
-                <option value="Floret leraren" data-type="score">Floret, leraren</option>
-                <option value="Sabel leraren" data-type="score">Sabel, leraren</option>
-            </optgroup>
-            <optgroup label="Schietsport">
-                <option value="Militair pistool 25m" data-type="score">Militair pistool 25m</option>
-                <option value="Militair geweer 200m" data-type="score">Militair geweer 200m</option>
-                <option value="Vrij geweer 300m" data-type="score">Vrij geweer 300m</option>
-                <option value="Vrij pistool 50m" data-type="score">Vrij pistool 50m</option>
-            </optgroup>
-            <optgroup label="Touwtrekken">
-                <option value="Touwtrekken" data-type="score">Touwtrekken</option>
-            </optgroup>
-            <optgroup label="Wielersport">
-                <option value="Tijdrit 1000m" data-type="time">Tijdrit, 1000m</option>
-                <option value="10km" data-type="time">10 km</option>
-                <option value="100km" data-type="time">100 km</option>
-                <option value="12 uur" data-type="time">12 uur</option>
-            </optgroup>
-            <optgroup label="Zwemmen">
-                <option value="100m vrije slag matrozen" data-type="time">100 m vrije slag matrozen</option>
-                <option value="500m vrije slag" data-type="time">500 m vrije slag</option>
-                <option value="1200m vrije slag" data-type="time">1200 m vrije slag</option>
-            </optgroup>
-        </select>
-        <button onclick="simulateEvent()">Start Wedstrijd</button>
-        <div class="log" id="gameLog"></div>
-        <table class="leaderboard" id="leaderboard">
-            <thead>
-                <tr>
-                    <th>Positie</th>
-                    <th>Atleet</th>
-                    <th id="scoreHeader">Score/Afstand/Tijd</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+
+<div class="nav">
+    <a href="manager.html">🔙 Terug naar Manager</a>
+</div>
+
+<div class="container">
+    <h1>Wedstrijd Simulatie 🏆</h1>
+    <p>Kies een evenement en start de wedstrijd.</p>
+
+    <select id="evenementSelect">
+        <option value="100m">Atletiek - 100m</option>
+        <option value="400m">Atletiek - 400m</option>
+        <option value="kogelstoten">Atletiek - Kogelstoten</option>
+        <option value="touwtrekken">Touwtrekken</option>
+        <option value="zwemmen">Zwemmen - 100m Vrije slag</option>
+    </select>
+
+    <button class="button" onclick="startSimulatie()">Start Wedstrijd</button>
+
+    <h2>Live Wedstrijdverslag 📡</h2>
+    <div class="log" id="wedstrijdLog">
+        <p>Nog geen wedstrijd gestart.</p>
     </div>
-    <script>
-        let raceInProgress = false;
+</div>
 
-        function logMessage(message) {
-            let logDiv = document.getElementById("gameLog");
-            logDiv.innerHTML += `<p>${message}</p>`;
+<script>
+    let weersomstandigheden = ["Zonnig ☀️", "Regenachtig 🌧️", "Winderig 💨", "Vochtig 🌫️"];
+    
+    function startSimulatie() {
+        let evenement = document.getElementById("evenementSelect").value;
+        let logDiv = document.getElementById("wedstrijdLog");
+        logDiv.innerHTML = `<p>🌍 Weer: ${weersomstandigheden[Math.floor(Math.random() * weersomstandigheden.length)]}</p>`;
+        logDiv.innerHTML += `<p>🏁 Start van de wedstrijd: ${evenement}!</p>`;
+        
+        let atleten = [
+            { naam: "Liam Johnson", snelheid: Math.random() * 10 },
+            { naam: "Carlos Martinez", snelheid: Math.random() * 10 },
+            { naam: "Hans Müller", snelheid: Math.random() * 10 },
+            { naam: "Pierre Dupont", snelheid: Math.random() * 10 },
+            { naam: "Yuuki Tanaka", snelheid: Math.random() * 10 }
+        ];
+
+        let interval = setInterval(() => {
+            atleten.forEach(atleet => atleet.snelheid += Math.random());
+            atleten.sort((a, b) => b.snelheid - a.snelheid);
+            logDiv.innerHTML += `<p>📊 Stand: ${atleten.map(a => `${a.naam}: ${a.snelheid.toFixed(1)} punten`).join(' | ')}</p>`;
             logDiv.scrollTop = logDiv.scrollHeight;
-        }
+        }, 2000);
 
-        function getDuration(sport) {
-            const durations = {
-                "100m": 10000,
-                "400m": 45000,
-                "800m": 120000,
-                "1500m": 210000,
-                "110m Horden": 12000,
-                "Marathon": 7200000,
-                "Touwklimmen": 30000,
-                "Touwtrekken": 30000,
-                "Hink-stap-springen": 60000,
-                "Hoogspringen": 60000,
-                "Polsstokhoogspringen": 60000,
-                "Verspringen": 60000,
-                "Discuswerpen": 60000,
-                "Kogelstoten": 60000,
-                "Tijdrit 1000m": 70000,
-                "10km": 1200000,
-                "100km": 3600000,
-                "12 uur": 43200000,
-                "Eenarmig (Open)": 90000,
-                "Hoogduiken": 45000,
-                "Militair pistool 25m": 40000,
-                "Vrij geweer 300m": 90000
-            };
-            return durations[sport] || 60000;
-        }
+        setTimeout(() => {
+            clearInterval(interval);
+            logDiv.innerHTML += `<p>🏅 Winnaar: ${atleten[0].naam}!</p>`;
+        }, 10000);
+    }
+</script>
 
-        function generateAthletes() {
-            let names = ["Atleet 1", "Atleet 2", "Atleet 3", "Atleet 4", "Atleet 5", "Atleet 6", "Atleet 7", "Atleet 8"];
-            return names.map(name => ({ name, progress: 0, score: 0, time: 0 }));
-        }
-
-        function updateLeaderboard(atleten, sportType) {
-            let leaderboardBody = document.getElementById("leaderboard").querySelector("tbody");
-            leaderboardBody.innerHTML = "";
-            atleten.forEach((atleet, index) => {
-                let value = sportType === "score" ? `${atleet.score} punten` :
-                            sportType === "time" ? `${atleet.time.toFixed(2)} sec` :
-                            `${atleet.progress.toFixed(1)} m`;
-                let row = `<tr>
-                    <td>${index + 1}</td>
-                    <td>${atleet.name}</td>
-                    <td>${value}</td>
-                </tr>`;
-                leaderboardBody.innerHTML += row;
-            });
-        }
-
-        function simulateEvent() {
-            if (raceInProgress) return;
-            raceInProgress = true;
-
-            let selectedOption = document.getElementById("sportSelect").selectedOptions[0];
-            let selectedSport = selectedOption.value;
-            let sportType = selectedOption.dataset.type;
-            document.getElementById("scoreHeader").innerText = sportType === "score" ? "Score" :
-                                                                sportType === "time" ? "Tijd (sec)" :
-                                                                "Afstand (m)";
-            document.getElementById("gameLog").innerHTML = "";
-            document.getElementById("leaderboard").querySelector("tbody").innerHTML = "";
-
-            let atleten = generateAthletes();
-            logMessage(`🏁 Deelnemers aan de ${selectedSport} wedstrijd: ${atleten.map(a => a.name).join(', ')}`);
-            logMessage(`📢 De wedstrijd begint!`);
-
-            let duration = getDuration(selectedSport);
-            let interval = duration / 10;
-            let progress = 0;
-
-            let simulation = setInterval(() => {
-                progress += interval;
-
-                atleten.forEach(atleet => {
-                    if (sportType === "score") {
-                        atleet.score += Math.floor(Math.random() * 10);
-                    } else if (sportType === "time") {
-                        atleet.time += Math.random() * 0.5;
-                    } else {
-                        atleet.progress += Math.random() * 10;
-                    }
-                });
-
-                atleten.sort((a, b) => sportType === "score" ? b.score - a.score :
-                                       sportType === "time" ? a.time - b.time :
-                                       b.progress - a.progress);
-                updateLeaderboard(atleten, sportType);
-
-                if (sportType === "time") {
-                    logMessage(`${atleten[0].name} loopt op kop met ${atleten[0].time.toFixed(2)} sec!`);
-                } else if (sportType === "score") {
-                    logMessage(`${atleten[0].name} scoort en heeft nu ${atleten[0].score} punten!`);
-                } else {
-                    logMessage(`${atleten[0].name} neemt de leiding met ${atleten[0].progress.toFixed(1)} meter!`);
-                }
-
-                if (progress >= duration) {
-                    clearInterval(simulation);
-                    logMessage(`🏆 Winnaar: ${atleten[0].name}! 🎉`);
-                    raceInProgress = false;
-                }
-            }, interval);
-        }
-    </script>
 </body>
 </html>
