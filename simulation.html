@@ -128,3 +128,118 @@
             </tbody>
         </table>
     </div>
+    <script>
+        let raceInProgress = false;
+
+        function logMessage(message) {
+            let logDiv = document.getElementById("gameLog");
+            logDiv.innerHTML += `<p>${message}</p>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function getDuration(sport) {
+            const durations = {
+                "100m": 10000,
+                "400m": 45000,
+                "800m": 120000,
+                "1500m": 210000,
+                "110m Horden": 12000,
+                "Marathon": 7200000,
+                "Touwklimmen": 30000,
+                "Touwtrekken": 30000,
+                "Hink-stap-springen": 60000,
+                "Hoogspringen": 60000,
+                "Polsstokhoogspringen": 60000,
+                "Verspringen": 60000,
+                "Discuswerpen": 60000,
+                "Kogelstoten": 60000,
+                "Tijdrit 1000m": 70000,
+                "10km": 1200000,
+                "100km": 3600000,
+                "12 uur": 43200000,
+                "Eenarmig (Open)": 90000,
+                "Hoogduiken": 45000,
+                "Militair pistool 25m": 40000,
+                "Vrij geweer 300m": 90000
+            };
+            return durations[sport] || 60000;
+        }
+
+        function generateAthletes() {
+            let names = ["Atleet 1", "Atleet 2", "Atleet 3", "Atleet 4", "Atleet 5", "Atleet 6", "Atleet 7", "Atleet 8"];
+            return names.map(name => ({ name, progress: 0, score: 0, time: 0 }));
+        }
+
+        function updateLeaderboard(atleten, sportType) {
+            let leaderboardBody = document.getElementById("leaderboard").querySelector("tbody");
+            leaderboardBody.innerHTML = "";
+            atleten.forEach((atleet, index) => {
+                let value = sportType === "score" ? `${atleet.score} punten` :
+                            sportType === "time" ? `${atleet.time.toFixed(2)} sec` :
+                            `${atleet.progress.toFixed(1)} m`;
+                let row = `<tr>
+                    <td>${index + 1}</td>
+                    <td>${atleet.name}</td>
+                    <td>${value}</td>
+                </tr>`;
+                leaderboardBody.innerHTML += row;
+            });
+        }
+
+        function simulateEvent() {
+            if (raceInProgress) return;
+            raceInProgress = true;
+
+            let selectedOption = document.getElementById("sportSelect").selectedOptions[0];
+            let selectedSport = selectedOption.value;
+            let sportType = selectedOption.dataset.type;
+            document.getElementById("scoreHeader").innerText = sportType === "score" ? "Score" :
+                                                                sportType === "time" ? "Tijd (sec)" :
+                                                                "Afstand (m)";
+            document.getElementById("gameLog").innerHTML = "";
+            document.getElementById("leaderboard").querySelector("tbody").innerHTML = "";
+
+            let atleten = generateAthletes();
+            logMessage(`🏁 Deelnemers aan de ${selectedSport} wedstrijd: ${atleten.map(a => a.name).join(', ')}`);
+            logMessage(`📢 De wedstrijd begint!`);
+
+            let duration = getDuration(selectedSport);
+            let interval = duration / 10;
+            let progress = 0;
+
+            let simulation = setInterval(() => {
+                progress += interval;
+
+                atleten.forEach(atleet => {
+                    if (sportType === "score") {
+                        atleet.score += Math.floor(Math.random() * 10);
+                    } else if (sportType === "time") {
+                        atleet.time += Math.random() * 0.5;
+                    } else {
+                        atleet.progress += Math.random() * 10;
+                    }
+                });
+
+                atleten.sort((a, b) => sportType === "score" ? b.score - a.score :
+                                       sportType === "time" ? a.time - b.time :
+                                       b.progress - a.progress);
+                updateLeaderboard(atleten, sportType);
+
+                if (sportType === "time") {
+                    logMessage(`${atleten[0].name} loopt op kop met ${atleten[0].time.toFixed(2)} sec!`);
+                } else if (sportType === "score") {
+                    logMessage(`${atleten[0].name} scoort en heeft nu ${atleten[0].score} punten!`);
+                } else {
+                    logMessage(`${atleten[0].name} neemt de leiding met ${atleten[0].progress.toFixed(1)} meter!`);
+                }
+
+                if (progress >= duration) {
+                    clearInterval(simulation);
+                    logMessage(`🏆 Winnaar: ${atleten[0].name}! 🎉`);
+                    raceInProgress = false;
+                }
+            }, interval);
+        }
+    </script>
+</body>
+</html>
