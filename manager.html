@@ -32,6 +32,11 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        .stats {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -43,6 +48,12 @@
 
 <div class="container">
     <h1>Managerpagina</h1>
+    
+    <h2>Jouw Land 🌍</h2>
+    <p id="landNaam">Laden...</p>
+
+    <h2>Medal Points 🏅</h2>
+    <p id="mpAantal">Laden...</p>
 
     <h2>Teambeheer 👥</h2>
     <a href="atletenbeheer.html">Beheer Atleten</a>
@@ -55,6 +66,18 @@
         <p>Geen nieuwe meldingen.</p>
     </div>
 </div>
+<script>
+    // Haal het land van de speler op uit LocalStorage
+    let land = localStorage.getItem("mijnLand") || "Onbekend";
+    document.getElementById("landNaam").textContent = land;
+
+    // Haal MP-saldo op of stel standaard in op 100 MP
+    let mpSaldo = parseInt(localStorage.getItem("medalPoints")) || 100;
+    document.getElementById("mpAantal").textContent = mpSaldo + " MP";
+
+    // Sla MP op in localStorage (kan later worden aangepast bij beloningen)
+    localStorage.setItem("medalPoints", mpSaldo);
+</script>
 
 </body>
 </html>
