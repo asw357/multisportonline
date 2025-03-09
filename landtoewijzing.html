@@ -1,90 +1,55 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landtoewijzing - MultisportOnline</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-
-<div class="nav">
-    <a href="index.html">🏠 Home</a>
-</div>
-
-<div class="container">
-    <h1>Landtoewijzing 🌍</h1>
-    <p>Je bent geregistreerd! Je krijgt een land toegewezen...</p>
-
-    <h2>Jouw land: <span id="toegewezenLand">⏳ Bezig met laden...</span></h2>
-
-    <button class="button" onclick="window.location.href='manager.html'">Ga naar Managerpagina</button>
-</div>
 <script>
     let landen = [
         "Australië", "Bulgarije", "Chili", "Denemarken", "IJsland", "Duitsland", "Frankrijk", "Griekenland",
         "Cyprus", "Turkije", "Egypte", "Groot-Brittannië", "Ierland", "Hongarije", "Servië", "Italië",
-        "Oostenrijk", "Verenigde Staten", "Zweden", "Zwitserland", "Argentinië", "België", "Tsjechië", "India",
-        "Pakistan", "Bangladesh", "Myanmar", "Canada", "Cuba", "Mexico", "Nederland", "Noorwegen",
-        "Roemenië", "Rusland", "Spanje", "Haiti", "Iran", "Luxemburg", "Peru", "Zuid-Afrika", "Nieuw-Zeeland",
+        "Oostenrijk", "Verenigde Staten", "Zweden", "Zwitserland", "Argentinië", "België", "Tsjechië",
+        "India", "Pakistan", "Bangladesh", "Myanmar", "Canada", "Cuba", "Mexico", "Nederland", "Noorwegen",
+        "Roemenië", "Rusland", "Spanje", "Haïti", "Iran", "Luxemburg", "Peru", "Zuid-Afrika", "Nieuw-Zeeland",
         "Finland", "Japan", "Portugal", "Brazilië", "Estland", "Kroatië", "Slovenië", "Bosnië en Herzegovina",
         "Kosovo", "Montenegro", "Noord-Macedonië", "Monaco", "Slowakije", "Letland", "Polen", "Ecuador",
         "Filipijnen", "Litouwen", "Uruguay", "Malta", "Panama", "Zimbabwe", "Colombia", "Taipei", "Liechtenstein",
         "Afghanistan", "Bermuda", "Bolivia", "Costa Rica", "Libanon", "Zuid-Korea", "Guyana", "Sri Lanka",
         "Irak", "Jamaica", "Puerto Rico", "Singapore", "Syrië", "Trinidad en Tobago", "Venezuela", "Bahama's",
-        "China", "Ghana", "Guatemala", "Hongkong", "Indonesië", "Israël", "Nigeria", "Wit-Rusland",
-        "Oekraïne", "Moldavië", "Georgië", "Armenië", "Azerbeidzjan", "Kazachstan", "Oezbekistan",
-        "Turkmenistan", "Kirgizië", "Tadzjikistan", "Thailand", "Vietnam", "Ethiopië", "Fiji", "Kenia",
-        "Liberia", "Maleisië", "Oeganda", "Suriname", "Marokko", "San Marino", "Soedan", "Tunesië",
-        "Barbados", "Antigua en Barbuda", "Kaaimaneilanden", "Dominica", "Grenada", "Saint Kitts en Nevis",
-        "Saint Lucia", "Saint Vincent en de Grenadines", "Mongolië", "Noord-Korea", "Algerije",
-        "Congo-Brazzaville", "Dominicaanse Republiek", "Ivoorkust", "Libië", "Kameroen", "Madagaskar",
-        "Mali", "Nepal", "Niger", "Zambia", "Senegal", "Tanzania", "Tsjaad", "Amerikaanse Maagdeneilanden",
-        "Belize", "Centraal-Afrikaanse Republiek", "Congo-Kinshasa", "El Salvador", "Guinee", "Honduras",
-        "Koeweit", "Nicaragua", "Paraguay", "Sierra Leone", "Albanië", "Benin", "Gabon", "Lesotho", "Malawi",
-        "Burkina Faso", "Saoedi-Arabië", "Somalië", "Swaziland", "Togo", "Andorra", "Papoea-Nieuw-Guinea",
-        "Angola", "Botswana", "Jordanië", "Laos", "Mozambique", "Seychellen", "Bahrein", "Bhutan",
-        "Britse Maagdeneilanden", "Djibouti", "Equatoriaal-Guinea", "Gambia", "Mauritanië", "Mauritius",
-        "Jemen", "Oman", "Qatar", "Rwanda", "Salomonseilanden", "Samoa", "Tonga", "VAE", "Guam",
-        "Aruba", "Amerikaans-Samoa", "Cookeilanden", "Maldiven", "Vanuatu", "Brunei", "Namibië", "Burundi",
-        "Comoren", "Guinee-Bissau", "Kaapverdië", "Nauru", "Palestina", "Sao Tomé en Principe", "Micronesië",
-        "Palau", "Oost-Timor", "Kiribati", "Marshalleilanden", "Tuvalu", "Zuid-Soedan", "Vaticaanstad"
+        "China", "Ghana", "Guatemala", "Hongkong", "Indonesië", "Israël", "Nigeria", "Wit-Rusland", "Oekraïne",
+        "Moldavië", "Georgië", "Armenië", "Azerbeidzjan", "Kazachstan", "Oezbekistan", "Turkmenistan", "Kirgizië",
+        "Tadzjikistan", "Thailand", "Vietnam", "Ethiopië", "Fiji", "Kenia", "Liberia", "Maleisië", "Oeganda",
+        "Suriname", "Marokko", "San Marino", "Soedan", "Tunesië", "Barbados", "Antigua en Barbuda", "Kaaimaneilanden",
+        "Dominica", "Grenada", "Saint Kitts en Nevis", "Saint Lucia", "Saint Vincent en de Grenadines", "Mongolië",
+        "Noord-Korea", "Algerije", "Congo-Brazzaville", "Dominicaanse Republiek", "Ivoorkust", "Libië", "Kameroen",
+        "Madagaskar", "Mali", "Nepal", "Niger", "Zambia", "Senegal", "Tanzania", "Tsjaad", "Amerikaanse Maagdeneilanden",
+        "Belize", "Centraal-Afrikaanse Republiek", "Congo-Kinshasa", "El Salvador", "Guinee", "Honduras", "Koeweit",
+        "Nicaragua", "Paraguay", "Sierra Leone", "Albanië", "Benin", "Gabon", "Lesotho", "Malawi", "Burkina Faso",
+        "Saoedi-Arabië", "Somalië", "Swaziland", "Togo", "Andorra", "Papoea-Nieuw-Guinea", "Angola", "Botswana",
+        "Jordanië", "Laos", "Mozambique", "Seychellen", "Bahrein", "Bhutan", "Britse Maagdeneilanden", "Djibouti",
+        "Equatoriaal-Guinea", "Gambia", "Mauritanië", "Mauritius", "Jemen", "Oman", "Qatar", "Rwanda", "Salomonseilanden",
+        "Samoa", "Tonga", "Verenigde Arabische Emiraten", "Guam", "Aruba", "Amerikaans-Samoa", "Cookeilanden",
+        "Maldiven", "Vanuatu", "Brunei", "Namibië", "Burundi", "Comoren", "Guinee-Bissau", "Kaapverdië", "Nauru",
+        "Palestina", "Sao Tomé en Principe", "Micronesië", "Palau", "Oost-Timor", "Kiribati", "Marshalleilanden",
+        "Tuvalu", "Zuid-Soedan", "Vaticaanstad"
     ];
 
-    function kiesLand() {
-        if (!localStorage.getItem("mijnLand")) {
-            let toegewezenLand = landen[Math.floor(Math.random() * landen.length)];
-            localStorage.setItem("mijnLand", toegewezenLand);
-        }
-        document.getElementById("toegewezenLand").textContent = localStorage.getItem("mijnLand");
-    }
+    function registreer() {
+        let gebruikersnaam = document.getElementById("username").value;
+        let email = document.getElementById("email").value;
+        let wachtwoord = document.getElementById("password").value;
 
-    window.onload = kiesLand;
+        if (gebruikersnaam && email && wachtwoord) {
+            let toegewezenLanden = JSON.parse(localStorage.getItem("toegewezenLanden")) || [];
+            let beschikbaarLand = landen[toegewezenLanden.length];
+
+            if (!beschikbaarLand) {
+                alert("Geen beschikbare landen meer!");
+                return;
+            }
+
+            toegewezenLanden.push(beschikbaarLand);
+            localStorage.setItem("toegewezenLanden", JSON.stringify(toegewezenLanden));
+            localStorage.setItem("mijnLand", beschikbaarLand);
+            
+            alert("Registratie succesvol! Je land is: " + beschikbaarLand);
+            window.location.href = "manager.html";
+        } else {
+            alert("Vul alle velden in!");
+        }
+    }
 </script>
-</html>
