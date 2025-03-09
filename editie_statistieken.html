@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistieken per Editie - MultisportOnline</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        select {
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">🏠 Home</a> |
+        <a href="statistieken.html">📊 Statistieken</a> |
+        <a href="medaille_spiegel.html">🥇 Medaille Spiegel</a> |
+        <a href="records.html">🏆 Records</a> |
+        <a href="editie_statistieken.html">📅 Statistieken per Editie</a>
+    </nav>
+    <div class="container">
+        <h2>Statistieken per Editie</h2>
+        <label for="editieSelect">Selecteer een editie:</label>
+        <select id="editieSelect" onchange="updateEditieStatistieken()">
+            <option value="1">Editie 1 - Athene</option>
+            <option value="2">Editie 2 - Parijs</option>
+            <option value="3">Editie 3 - Londen</option>
+            <option value="4">Editie 4 - Berlijn</option>
+            <option value="5">Editie 5 - Los Angeles</option>
+        </select>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sport & Evenement</th>
+                    <th>🥇 Goud</th>
+                    <th>🥈 Zilver</th>
+                    <th>🥉 Brons</th>
+                </tr>
+            </thead>
+            <tbody id="editieTable">
+                <!-- Data wordt hier geladen -->
+            </tbody>
+        </table>
+    </div>
