@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statistieken per Editie - MultisportOnline</title>
+    <title>Editie Statistieken - MultisportOnline</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,99 +18,56 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        select {
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
+        .button {
             background-color: #007bff;
             color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">🏠 Home</a> |
-        <a href="statistieken.html">📊 Statistieken</a> |
-        <a href="medaille_spiegel.html">🥇 Medaille Spiegel</a> |
-        <a href="records.html">🏆 Records</a> |
-        <a href="editie_statistieken.html">📅 Statistieken per Editie</a>
-    </nav>
-    <div class="container">
-        <h2>Statistieken per Editie</h2>
-        <label for="editieSelect">Selecteer een editie:</label>
-        <select id="editieSelect" onchange="updateEditieStatistieken()">
-            <option value="1">Editie 1 - Athene</option>
-            <option value="2">Editie 2 - Parijs</option>
-            <option value="3">Editie 3 - Londen</option>
-            <option value="4">Editie 4 - Berlijn</option>
-            <option value="5">Editie 5 - Los Angeles</option>
-        </select>
-        <table>
-            <thead>
-                <tr>
-                    <th>Sport & Evenement</th>
-                    <th>🥇 Goud</th>
-                    <th>🥈 Zilver</th>
-                    <th>🥉 Brons</th>
-                </tr>
-            </thead>
-            <tbody id="editieTable">
-                <!-- Data wordt hier geladen -->
-            </tbody>
-        </table>
+
+<div class="nav">
+    <a href="manager.html">🔙 Terug naar Manager</a>
+</div>
+
+<div class="container">
+    <h1>Editie Statistieken 🏆</h1>
+    <p>Bekijk alle prestaties van vorige edities.</p>
+
+    <select id="editieSelect">
+        <option value="editie1">Zomereditie 1</option>
+        <option value="editie2">Zomereditie 2</option>
+    </select>
+
+    <button class="button" onclick="toonStatistieken()">Bekijk Editie</button>
+
+    <h2>Resultaten 📊</h2>
+    <div id="statistieken">
+        <p>Selecteer een editie om gegevens te bekijken.</p>
     </div>
-    <script>
+</div>
+
+<script>
+    function toonStatistieken() {
+        let editie = document.getElementById("editieSelect").value;
+        let statDiv = document.getElementById("statistieken");
+
         let editieData = {
-            "1": [
-                { sport: "Atletiek - 100m Sprint", goud: "USA", zilver: "Jamaica", brons: "Frankrijk" },
-                { sport: "Atletiek - 200m Sprint", goud: "Jamaica", zilver: "USA", brons: "Duitsland" },
-                { sport: "Zwemmen - 100m Vrije Slag", goud: "Australië", zilver: "USA", brons: "Nederland" },
-                { sport: "Schermen - Sabel Individueel", goud: "Italië", zilver: "Frankrijk", brons: "Rusland" }
-            ],
-            "2": [
-                { sport: "Atletiek - 100m Sprint", goud: "Canada", zilver: "Jamaica", brons: "Frankrijk" },
-                { sport: "Atletiek - 200m Sprint", goud: "USA", zilver: "Jamaica", brons: "Nederland" },
-                { sport: "Zwemmen - 100m Vrije Slag", goud: "Frankrijk", zilver: "Australië", brons: "USA" },
-                { sport: "Schermen - Sabel Individueel", goud: "Rusland", zilver: "Italië", brons: "Frankrijk" }
-            ],
-            "3": [
-                { sport: "Atletiek - 100m Sprint", goud: "Jamaica", zilver: "USA", brons: "Frankrijk" },
-                { sport: "Atletiek - 200m Sprint", goud: "Duitsland", zilver: "Jamaica", brons: "Nederland" },
-                { sport: "Zwemmen - 100m Vrije Slag", goud: "USA", zilver: "Australië", brons: "Frankrijk" },
-                { sport: "Schermen - Sabel Individueel", goud: "Frankrijk", zilver: "Rusland", brons: "Italië" }
-            ]
+            "editie1": "<p>🥇 3x Goud, 🥈 2x Zilver, 🥉 1x Brons</p>",
+            "editie2": "<p>🥇 2x Goud, 🥈 1x Zilver, 🥉 3x Brons</p>"
         };
 
-        function updateEditieStatistieken() {
-            let selectedEditie = document.getElementById("editieSelect").value;
-            let tableBody = document.getElementById("editieTable");
-            tableBody.innerHTML = "";
+        statDiv.innerHTML = editieData[editie];
+    }
+</script>
 
-            let selectedData = editieData[selectedEditie] || [];
-
-            selectedData.forEach(event => {
-                let row = `<tr>
-                    <td>${event.sport}</td>
-                    <td>${event.goud}</td>
-                    <td>${event.zilver}</td>
-                    <td>${event.brons}</td>
-                </tr>`;
-                tableBody.innerHTML += row;
-            });
-        }
-
-        window.onload = updateEditieStatistieken;
-    </script>
 </body>
 </html>
