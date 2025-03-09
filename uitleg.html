@@ -17,19 +17,20 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .faq {
             text-align: left;
+            margin-top: 20px;
         }
-        .button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
+        .faq h3 {
+            color: #007bff;
             cursor: pointer;
-            margin-top: 10px;
         }
-        .button:hover {
-            background-color: #0056b3;
+        .faq p {
+            display: none;
+            padding: 5px;
+            background: #f9f9f9;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -40,30 +41,44 @@
 </div>
 
 <div class="container">
-    <h1>Uitleg & Spelregels 📖</h1>
+    <h1>Hoe werkt MultisportOnline? 🏅</h1>
+    <p>Welkom bij MultisportOnline! Hier beheer je een nationaal team en neem je deel aan diverse sporten.</p>
 
-    <h2>🔹 Doel van het spel</h2>
-    <p>Je bent de manager van een nationaal team en moet je atleten begeleiden naar succes.</p>
-
-    <h2>🔹 Hoe werkt het?</h2>
+    <h2>📌 Basisstappen</h2>
     <ul>
-        <li>📌 **Inschrijven:** Je krijgt een willekeurig land toegewezen.</li>
-        <li>🎽 **Atleten beheren:** Train en scout nieuwe atleten.</li>
-        <li>🧠 **Strategieën kiezen:** Stel per wedstrijd een strategie in.</li>
-        <li>🏆 **Wedstrijden simuleren:** Zie hoe je team presteert in realistische simulaties.</li>
-        <li>🥇 **Medailles verdienen:** Verdien Medal Points (MP) en verbeter je team.</li>
+        <li>🔹 **Registreren:** Maak een account en ontvang automatisch een land.</li>
+        <li>🔹 **Atletenbeheer:** Bekijk je atleten en train ze om beter te worden.</li>
+        <li>🔹 **Scouten:** Zoek nieuwe atleten voor je team.</li>
+        <li>🔹 **Strategieën:** Bepaal je tactiek per wedstrijd.</li>
+        <li>🔹 **Wedstrijden:** Neem deel aan evenementen en win medailles!</li>
     </ul>
 
-    <h2>🔹 Belangrijke regels</h2>
-    <ul>
-        <li>❌ Spelers kunnen hun land niet veranderen.</li>
-        <li>⚡ Maximaal 3 trainingen per atleet per 48 uur.</li>
-        <li>⏳ Strategieën moeten vóór de wedstrijd ingesteld worden.</li>
-        <li>🔎 Scouting is beperkt per evenement.</li>
-    </ul>
+    <h2>🤔 Veelgestelde vragen</h2>
+    <div class="faq">
+        <h3 onclick="toggleFAQ(0)">Hoe word ik een betere coach? ⬇️</h3>
+        <p>Door je atleten slim te trainen en strategieën goed in te zetten.</p>
 
-    <button class="button" onclick="window.location.href='register.html'">Nu Registreren</button>
+        <h3 onclick="toggleFAQ(1)">Hoe kan ik mijn MP verdienen en uitgeven? ⬇️</h3>
+        <p>Je verdient MP door prestaties en kunt ze gebruiken voor scouting en training.</p>
+
+        <h3 onclick="toggleFAQ(2)">Kan ik mijn land wijzigen? ⬇️</h3>
+        <p>Nee, eenmaal toegewezen blijft je land hetzelfde.</p>
+
+        <h3 onclick="toggleFAQ(3)">Wanneer start een nieuwe editie? ⬇️</h3>
+        <p>Elke editie wordt aangekondigd in de managerpagina.</p>
+    </div>
 </div>
+<script>
+    function toggleFAQ(index) {
+        let antwoorden = document.querySelectorAll(".faq p");
+        if (antwoorden[index].style.display === "block") {
+            antwoorden[index].style.display = "none";
+        } else {
+            antwoorden.forEach(antwoord => antwoord.style.display = "none");
+            antwoorden[index].style.display = "block";
+        }
+    }
+</script>
 
 </body>
 </html>
