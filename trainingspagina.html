@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trainingen - MultisportOnline</title>
+    <title>Training - MultisportOnline</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,9 +27,6 @@
             cursor: pointer;
             margin: 5px;
         }
-        .button:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
@@ -39,29 +36,20 @@
 </div>
 
 <div class="container">
-    <h1>Trainingen 💪</h1>
-    <p>Selecteer een atleet en een trainingstype.</p>
-
-    <select id="atleetSelect">
-        <option value="1">Atleet 1</option>
-        <option value="2">Atleet 2</option>
-        <option value="3">Atleet 3</option>
-    </select>
+    <h1>Training 💪</h1>
+    <p>Selecteer een atleet en trainingstype.</p>
 
     <select id="trainingSelect">
-        <option value="sprint">Sprinttraining (10 MP) ⚡</option>
-        <option value="kracht">Krachttraining (15 MP) 💪</option>
-        <option value="techniek">Techniektraining (8 MP) 🎯</option>
+        <option value="sprint">Sprint Training (Meer snelheid, minder uithoudingsvermogen)</option>
+        <option value="kracht">Krachttraining (Meer kracht, minder snelheid)</option>
+        <option value="uithouding">Uithoudingstraining (Meer uithoudingsvermogen, minder explosiviteit)</option>
+        <option value="techniek">Techniektraining (Meer controle, minder brute kracht)</option>
     </select>
 
-    <button class="button" onclick="startTraining()">Start Training</button>
+    <button class="button" onclick="startTraining()">Start Training (10 MP)</button>
+
+    <h2>Trainingsresultaten 📊</h2>
+    <div class="log" id="trainingsLog">
+        <p>Nog geen training uitgevoerd.</p>
+    </div>
 </div>
-
-<script>
-    function startTraining() {
-        alert("Training gestart!");
-    }
-</script>
-
-</body>
-</html>
