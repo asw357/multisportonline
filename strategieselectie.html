@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategie Selectie - MultisportOnline</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .log {
+            text-align: left;
+            max-height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: #f9f9f9;
+            margin-top: 10px;
+        }
+        .info {
+            font-size: 12px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <a href="manager.html">🔙 Terug naar Manager</a>
+</div>
+
+<div class="container">
+    <h1>Strategie Selectie 🧠</h1>
+    <p>Kies een evenement en strategie voor je atleten.</p>
+
+    <select id="evenementSelect">
+        <option value="100m">Atletiek - 100m</option>
+        <option value="400m">Atletiek - 400m</option>
+        <option value="kogelstoten">Atletiek - Kogelstoten</option>
+        <option value="zwemmen">Zwemmen - 100m Vrije slag</option>
+        <option value="touwtrekken">Touwtrekken</option>
+    </select>
+
+    <h2>Kies een strategie 🎯</h2>
+    <select id="strategieSelect">
+        <option value="explosief">Explosieve Start 🚀 (Hoge snelheid, risico op DQ)</option>
+        <option value="constante">Gelijkmatige Verdelen ⚖️ (Constante prestatie, minder risico)</option>
+        <option value="maxkracht">Maximale Kracht 💪 (Extra kracht, risico op blessure)</option>
+        <option value="technisch">Technische Precisie 🎯 (Betere controle, minder explosiviteit)</option>
+        <option value="aanvallend">Aanvallende Stijl 🌪️ (Snellere prestaties, kans op fouten)</option>
+    </select>
+
+    <p class="info">⚠️ Strategieën kunnen tot 30 minuten voor de wedstrijd worden aangepast.</p>
+    <button class="button" onclick="selecteerStrategie()">Strategie Instellen</button>
+
+    <h2>Gekozen Strategie 📋</h2>
+    <div class="log" id="strategieLog">
+        <p>Nog geen strategie gekozen.</p>
+    </div>
+</div>
+
+<script>
+    function selecteerStrategie() {
+        let evenement = document.getElementById("evenementSelect").value;
+        let strategie = document.getElementById("strategieSelect").value;
+        let logDiv = document.getElementById("strategieLog");
+
+        let strategieText = {
+            "explosief": "Explosieve Start 🚀 - Hoge snelheid, risico op DQ.",
+            "constante": "Gelijkmatige Verdelen ⚖️ - Constante prestatie, minder risico.",
+            "maxkracht": "Maximale Kracht 💪 - Extra kracht, risico op blessure.",
+            "technisch": "Technische Precisie 🎯 - Betere controle, minder explosiviteit.",
+            "aanvallend": "Aanvallende Stijl 🌪️ - Snellere prestaties, kans op fouten."
+        };
+
+        logDiv.innerHTML = `<p>✅ Strategie voor ${evenement}: <strong>${strategieText[strategie]}</strong></p>`;
+    }
+</script>
+
+</body>
+</html>
