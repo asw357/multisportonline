@@ -57,3 +57,18 @@
         <p>Selecteer een editie om gegevens te bekijken.</p>
     </div>
 </div>
+<script>
+    let editieData = {
+        "editie1": "<p>🥇 3x Goud, 🥈 2x Zilver, 🥉 1x Brons</p>",
+        "editie2": "<p>🥇 2x Goud, 🥈 1x Zilver, 🥉 3x Brons</p>"
+    };
+
+    function toonStatistieken() {
+        let editie = document.getElementById("editieSelect").value;
+        let statDiv = document.getElementById("statistieken");
+        statDiv.innerHTML = editieData[editie];
+    }
+</script>
+
+</body>
+</html>
