@@ -60,3 +60,36 @@
             </tbody>
         </table>
     </div>
+    <script>
+        let medailleData = [
+            { land: "Verenigde Staten", goud: 30, zilver: 25, brons: 20 },
+            { land: "China", goud: 28, zilver: 18, brons: 22 },
+            { land: "Rusland", goud: 25, zilver: 20, brons: 18 },
+            { land: "Nederland", goud: 20, zilver: 15, brons: 10 },
+            { land: "Duitsland", goud: 18, zilver: 16, brons: 12 },
+            { land: "Japan", goud: 15, zilver: 12, brons: 10 }
+        ];
+
+        function updateMedailleSpiegel() {
+            let tableBody = document.getElementById("medailleTable");
+            tableBody.innerHTML = "";
+
+            medailleData.sort((a, b) => (b.goud - a.goud) || (b.zilver - a.zilver) || (b.brons - a.brons));
+
+            medailleData.forEach((land, index) => {
+                let row = `<tr>
+                    <td>${index + 1}</td>
+                    <td>${land.land}</td>
+                    <td>${land.goud}</td>
+                    <td>${land.zilver}</td>
+                    <td>${land.brons}</td>
+                    <td>${land.goud + land.zilver + land.brons}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        window.onload = updateMedailleSpiegel;
+    </script>
+</body>
+</html>
