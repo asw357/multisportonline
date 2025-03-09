@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atletenbeheer - MultisportOnline</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Atletenbeheer</h2>
+        <p>Bekijk en beheer je atleten.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th>Sport</th>
+                    <th>Leeftijd</th>
+                    <th>Rating</th>
+                    <th>Acties</th>
+                </tr>
+            </thead>
+            <tbody id="atletenTable">
+                <!-- Atleten worden hier geladen -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const atleten = [
+            { naam: "Jan de Vries", sport: "100m Sprint", leeftijd: 22, rating: 85 },
+            { naam: "Peter van Dijk", sport: "Zwemmen", leeftijd: 24, rating: 90 },
+            { naam: "Sander Jansen", sport: "Gewichtheffen", leeftijd: 27, rating: 78 },
+            { naam: "Ruben Bos", sport: "Hoogspringen", leeftijd: 21, rating: 82 },
+            { naam: "Thomas Meijer", sport: "Touwtrekken", leeftijd: 29, rating: 88 }
+        ];
+
+        function loadAtleten() {
+            const tableBody = document.getElementById("atletenTable");
+            tableBody.innerHTML = "";
+            
+            atleten.forEach((atleet, index) => {
+                let row = `<tr>
+                    <td>${atleet.naam}</td>
+                    <td>${atleet.sport}</td>
+                    <td>${atleet.leeftijd}</td>
+                    <td>${atleet.rating}</td>
+                    <td><button onclick="trainAtleet(${index})">Train</button></td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function trainAtleet(index) {
+            atleten[index].rating += 1;
+            alert(`${atleten[index].naam} is getraind! Nieuwe rating: ${atleten[index].rating}`);
+            loadAtleten();
+        }
+
+        window.onload = loadAtleten;
+    </script>
+</body>
+</html>
