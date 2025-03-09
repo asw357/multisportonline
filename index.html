@@ -3,12 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MultisportOnline - Home</title>
+    <title>MultisportOnline - Hoofdnavigatie</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #f4f4f4;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            background-color: #007bff;
+            padding: 10px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+        .nav a:hover {
+            background-color: #0056b3;
         }
         .container {
             max-width: 800px;
@@ -18,47 +32,23 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        nav {
-            background: #007bff;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">🏠 Home</a> |
-        <a href="register.html">📝 Registreren</a> |
-        <a href="login.html">🔑 Inloggen</a> |
-        <a href="logout.html">🚪 Uitloggen</a> |
-        <a href="contact.html">📧 Contact</a> |
-        <a href="uitleg.html">ℹ️ Uitleg</a>
-    </nav>
-    <div class="container">
-        <h1>Welkom bij MultisportOnline!</h1>
-        <p>MultisportOnline is een online managementspel waarin je jouw land vertegenwoordigt en atleten traint om mee te doen aan competities.</p>
-        <button onclick="location.href='register.html'">Start nu met spelen!</button>
-    </div>
+
+<div class="nav">
+    <a href="index.html">🏠 Home</a>
+    <a href="manager.html">🎖️ Manager</a>
+    <a href="trainingspagina.html">💪 Training</a>
+    <a href="strategieselectie.html">🧠 Strategie</a>
+    <a href="simulatie.html">🏆 Simulatie</a>
+    <a href="logout.html">🚪 Uitloggen</a>
+</div>
+
+<div class="container">
+    <h1>Welkom bij MultisportOnline</h1>
+    <p>Kies een pagina in het menu om verder te gaan.</p>
+</div>
+
 </body>
 </html>
