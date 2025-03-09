@@ -27,9 +27,6 @@
             cursor: pointer;
             margin: 5px;
         }
-        .button:hover {
-            background-color: #0056b3;
-        }
         .log {
             text-align: left;
             max-height: 200px;
@@ -44,7 +41,7 @@
 <body>
 
 <div class="nav">
-    <a href="atletenbeheer.html">🔙 Terug naar Atletenbeheer</a>
+    <a href="manager.html">🔙 Terug naar Manager</a>
 </div>
 
 <div class="container">
@@ -66,7 +63,6 @@
         <p>Nog geen scouting uitgevoerd.</p>
     </div>
 </div>
-
 <script>
     let mpSaldo = 100; // Simulatie van Medal Points
     let scoutingBeurten = {}; // Per evenement max 3 scouts
@@ -99,7 +95,7 @@
 
         let geselecteerdeAtleten = atleten.sort(() => 0.5 - Math.random()).slice(0, 5);
 
-        let resultaat = `<p><strong>Geslecteerde atleten voor ${sport}:</strong></p>`;
+        let resultaat = `<p><strong>Geselecteerde atleten voor ${sport}:</strong></p>`;
         geselecteerdeAtleten.forEach(atleet => {
             resultaat += `<p>🏃 ${atleet.naam} - Kracht: ${atleet.kracht}</p>`;
         });
@@ -107,6 +103,5 @@
         logDiv.innerHTML = resultaat;
     }
 </script>
-
 </body>
 </html>
