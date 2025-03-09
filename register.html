@@ -37,6 +37,14 @@
     </style>
 </head>
 <body>
+    <nav>
+        <a href="index.html">🏠 Home</a> |
+        <a href="register.html">📝 Registreren</a> |
+        <a href="login.html">🔑 Inloggen</a> |
+        <a href="logout.html">🚪 Uitloggen</a> |
+        <a href="contact.html">📧 Contact</a> |
+        <a href="uitleg.html">ℹ️ Uitleg</a>
+    </nav>
     <div class="container">
         <h2>Registreren</h2>
         <p>Maak een account aan en ontvang een land om te beheren!</p>
@@ -49,67 +57,3 @@
         <p>Heb je al een account? <a href="login.html">Log hier in</a></p>
         <p id="message"></p>
     </div>
-
-    <script>
-        const landen = [
-            "Australie", "Bulgarije", "Chili", "Denemarken", "Ijsland", "Duitsland", "Frankrijk",
-            "Griekenland", "Cyprus", "Turkije", "Egypte", "Groot-Brittannie", "Ierland", "Hongarije",
-            "Servie", "Italie", "Oostenrijk", "Verenigde Staten", "Zweden", "Zwitserland", "Argentinie",
-            "Belgie", "Tsjechie", "India", "Pakistan", "Bangladesh", "Myanmar", "Canada", "Cuba",
-            "Mexico", "Nederland", "Noorwegen", "Roemenie", "Rusland", "Spanje", "Haiti", "Iran",
-            "Luxemburg", "Peru", "Zuid Afrika", "Nieuw Zeeland", "Finland", "Japan", "Portugal",
-            "Brazilie", "Estland", "Kroatie", "Slovenie", "Bosnie en Herzegovina", "Kosovo",
-            "Montenegro", "Noord-Macedonie", "Monaco", "Slowakije", "Letland", "Polen", "Ecuador",
-            "De Filipijnen", "Litouwen", "Uruguay", "Malta", "Panama", "Zimbabwe", "Colombia",
-            "Chinees Taipei", "Liechtenstein", "Afghanistan", "Bermuda", "Bolivia", "Costa Rica",
-            "Libanon", "Zuid Korea", "Guyana", "Sri Lanka", "Irak", "Jamaica", "Puerto Rico",
-            "Singapore", "Syrie", "Trinidad en Tobago", "Venezuela", "De Bahama's", "China", "Ghana",
-            "Guatemala", "Hongkong", "Indonesie", "Israel", "Nigeria", "Wit-Rusland", "Oekraine",
-            "Moldavie", "Georgie", "Armenie", "Azerbeidzjan", "Kazachstan", "Oezbekistan",
-            "Turkmenistan", "Kirgizie", "Tadzjikistan", "Thailand", "Vietnam", "Ethiopie", "Fiji",
-            "Kenia", "Liberia", "Maleisie", "Oeganda", "Suriname", "Marokko", "San Marino", "Soedan",
-            "Tunesie", "Barbados", "Antigua en Barbuda", "Kaaimaneilanden", "Dominica", "Grenada",
-            "Saint Kitts en Nevis", "Saint Lucia", "Saint Vincent en de Grenadines", "Mongolie",
-            "Noord Korea", "Algerije", "Congo-Brazzaville", "Dominicaanse Republiek", "Ivoorkust",
-            "Libie", "Kameroen", "Madagaskar", "Mali", "Nepal", "Niger", "Zambia", "Senegal",
-            "Tanzania", "Tsjaad", "Amerikaanse Maagdeneilanden", "Belize", "Centraal-Afrikaanse Republiek",
-            "Congo-Kinshasa", "El Salvador", "Guinee", "Honduras", "Koeweit", "Nicaragua", "Paraguay",
-            "Sierra Leone", "Albanie", "Benin", "Gabon", "Lesotho", "Malawi", "Burkina Faso",
-            "Saoedi-Arabie", "Somalie", "Swaziland", "Togo", "Andorra", "Papoea-Nieuw-Guinea", "Angola",
-            "Botswana", "Jordanie", "Laos", "Mozambique", "De Seychellen", "Bahrein", "Bhutan",
-            "Britse Maagdeneilanden", "Djibouti", "Equatoriaal-Guinea", "Gambia", "Mauritanie",
-            "Mauritius", "Jemen", "Oman", "Qatar", "Rwanda", "Salomonseilanden", "Samoa", "Tonga",
-            "VAE", "Guam", "Aruba", "Amerikaans-Samoa", "Cookeilanden", "Maldiven", "Vanuatu", "Brunei",
-            "Namibie", "Burundi", "Comoren", "Guinea-Bissau", "Kaapverdie", "Nauru", "Palestina",
-            "Sao Tome en Principe", "Micronesia", "Palau", "Oost-Timor", "Kiribati", "Marshalleilanden",
-            "Tuvalu", "Zuid-Soedan", "Vaticaanstad"
-        ];
-        
-        document.getElementById("registerForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            let email = document.getElementById("email").value;
-            let username = document.getElementById("username").value;
-            let password = document.getElementById("password").value;
-
-            if (!email || !username || !password) {
-                document.getElementById("message").textContent = "Vul alle velden in!";
-                return;
-            }
-
-            let toegewezenLand = landen.shift();
-            if (!toegewezenLand) {
-                document.getElementById("message").textContent = "Alle landen zijn al bezet!";
-                return;
-            }
-
-            sessionStorage.setItem("user", JSON.stringify({ email, username, land: toegewezenLand }));
-            document.getElementById("message").textContent = `Je bent geregistreerd! Jouw land: ${toegewezenLand}`;
-            
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 2000);
-        });
-    </script>
-</body>
-</html>
