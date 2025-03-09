@@ -42,9 +42,13 @@
             background-color: red;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 3px 7px;
+            font-size: 12px;
             cursor: pointer;
             border-radius: 5px;
+        }
+        .btn-ontslaan:hover {
+            background-color: darkred;
         }
     </style>
 </head>
@@ -57,6 +61,7 @@
 <div class="container">
     <h1>Atletenbeheer 👥</h1>
     <p>Bekijk en beheer je atleten per evenement.</p>
+    <p>Je hebt <strong><span id="mpSaldo"></span> MP</strong></p>
 
     <div id="atletenContainer"></div>
 </div>
@@ -119,6 +124,7 @@
     function toonAtleten(atleten) {
         let container = document.getElementById("atletenContainer");
         container.innerHTML = "";
+        document.getElementById("mpSaldo").textContent = mpSaldo;
 
         let sportGroepen = {};
         atleten.forEach(atleet => {
@@ -166,7 +172,7 @@
                         <td>${atleet.kracht}</td>
                         <td>${atleet.techniek}</td>
                         <td>${atleet.uithoudingsvermogen}</td>
-                        <td><button class="btn-ontslaan" onclick="ontslaan(${index})">❌</button></td>
+                        <td><button class="btn-ontslaan" onclick="ontslaan(${index})">❌ -10 MP</button></td>
                     </tr>`;
                     tbody.innerHTML += rij;
                 });
@@ -177,12 +183,17 @@
     }
 
     function ontslaan(index) {
-        let atleten = JSON.parse(localStorage.getItem("atleten"));
-        if (mpSaldo >= 10) {
-            atleten.splice(index, 1);
-            localStorage.setItem("atleten", JSON.stringify(atleten));
-            toonAtleten(atleten);
+        if (mpSaldo < 10) {
+            alert("Je hebt niet genoeg MP om een atleet te ontslaan!");
+            return;
         }
+        if (!confirm("Weet je zeker dat je deze atleet wilt ontslaan? Dit kost 10 MP.")) return;
+        let atleten = JSON.parse(localStorage.getItem("atleten"));
+        atleten.splice(index, 1);
+        localStorage.setItem("atleten", JSON.stringify(atleten));
+        mpSaldo -= 10;
+        localStorage.setItem("medalPoints", mpSaldo);
+        toonAtleten(atleten);
     }
 
     window.onload = genereerAtleten;
