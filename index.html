@@ -18,16 +18,18 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .nav {
+        nav {
+            background: #007bff;
+            padding: 10px;
             margin-bottom: 20px;
         }
-        .nav a {
-            margin: 0 10px;
+        nav a {
+            color: white;
             text-decoration: none;
+            margin: 0 15px;
             font-weight: bold;
-            color: #007bff;
         }
-        .nav a:hover {
+        nav a:hover {
             text-decoration: underline;
         }
         button {
@@ -45,15 +47,16 @@
     </style>
 </head>
 <body>
+    <nav>
+        <a href="index.html">🏠 Home</a> |
+        <a href="register.html">📝 Registreren</a> |
+        <a href="login.html">🔑 Inloggen</a> |
+        <a href="logout.html">🚪 Uitloggen</a> |
+        <a href="contact.html">📧 Contact</a> |
+        <a href="uitleg.html">ℹ️ Uitleg</a>
+    </nav>
     <div class="container">
         <h1>Welkom bij MultisportOnline!</h1>
-        <div class="nav">
-            <a href="register.html">Registreren</a>
-            <a href="login.html">Inloggen</a>
-            <a href="simulation.html">Simulatie</a>
-            <a href="contact.html">Contact</a>
-            <a href="uitleg.html">Uitleg</a>
-        </div>
         <p>MultisportOnline is een online managementspel waarin je jouw land vertegenwoordigt en atleten traint om mee te doen aan competities.</p>
         <button onclick="location.href='register.html'">Start nu met spelen!</button>
     </div>
