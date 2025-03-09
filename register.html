@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registreren - MultisportOnline</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Registreren</h2>
+        <p>Maak een account aan en ontvang een land om te beheren!</p>
+        <form id="registerForm">
+            <input type="email" id="email" placeholder="E-mailadres" required>
+            <input type="text" id="username" placeholder="Gebruikersnaam" required>
+            <input type="password" id="password" placeholder="Wachtwoord" required>
+            <button type="submit">Registreer</button>
+        </form>
+        <p>Heb je al een account? <a href="login.html">Log hier in</a></p>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const landen = [
+            "Australie", "Bulgarije", "Chili", "Denemarken", "Ijsland", "Duitsland",
+            "Frankrijk", "Griekenland", "Cyprus", "Turkije", "Egypte", "Groot-Brittannie",
+            "Ierland", "Hongarije", "Servie", "Italie", "Oostenrijk", "Verenigde Staten",
+            "Zweden", "Zwitserland", "Argentinie", "Belgie", "Tsjechie", "India"
+        ];
+        
+        document.getElementById("registerForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            let email = document.getElementById("email").value;
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if (!email || !username || !password) {
+                document.getElementById("message").textContent = "Vul alle velden in!";
+                return;
+            }
+
+            let toegewezenLand = landen.shift();
+            if (!toegewezenLand) {
+                document.getElementById("message").textContent = "Alle landen zijn al bezet!";
+                return;
+            }
+
+            sessionStorage.setItem("user", JSON.stringify({ email, username, land: toegewezenLand }));
+            document.getElementById("message").textContent = `Je bent geregistreerd! Jouw land: ${toegewezenLand}`;
+            
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
