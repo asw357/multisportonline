@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wereldrecords & Nationale Records - MultisportOnline</title>
+    <title>Records - MultisportOnline</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,90 +29,58 @@
             text-align: center;
         }
         th {
-            background-color: #007bff;
+            background-color: #28a745;
             color: white;
-        }
-        select {
-            padding: 10px;
-            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">🏠 Home</a> |
-        <a href="statistieken.html">📊 Statistieken</a> |
-        <a href="medaille_spiegel.html">🥇 Medaille Spiegel</a> |
-        <a href="records.html">🏆 Records</a> |
-        <a href="editie_statistieken.html">📅 Statistieken per Editie</a>
-    </nav>
-    <div class="container">
-        <h2>Wereldrecords & Nationale Records</h2>
-        <label for="sportSelect">Selecteer een sport:</label>
-        <select id="sportSelect" onchange="updateRecords()">
-            <option value="alle">Alle Sporten</option>
-            <option value="100m">Atletiek - 100m Sprint</option>
-            <option value="200m">Atletiek - 200m Sprint</option>
-            <option value="400m">Atletiek - 400m</option>
-            <option value="marathon">Atletiek - Marathon</option>
-            <option value="zwemmen100m">Zwemmen - 100m Vrije Slag</option>
-            <option value="zwemmen200m">Zwemmen - 200m Vrije Slag</option>
-            <option value="schermen">Schermen - Sabel Individueel</option>
-        </select>
-        <table>
-            <thead>
-                <tr>
-                    <th>Sport & Evenement</th>
-                    <th>MR (Wereldrecord)</th>
-                    <th>Naam Atleet</th>
-                    <th>Land</th>
-                </tr>
-            </thead>
-            <tbody id="recordTable">
-                <!-- Data wordt hier geladen -->
-            </tbody>
-        </table>
-    </div>
-    <script>
-        let recordsData = [
-            { sport: "100m", record: "9.58s", atleet: "John Doe", land: "USA" },
-            { sport: "200m", record: "19.19s", atleet: "Usain Fast", land: "Jamaica" },
-            { sport: "400m", record: "43.03s", atleet: "Speedy Runner", land: "South Africa" },
-            { sport: "marathon", record: "2:01:39", atleet: "Marathon King", land: "Kenya" },
-            { sport: "zwemmen100m", record: "46.91s", atleet: "Swim Master", land: "Australia" },
-            { sport: "zwemmen200m", record: "1:42.00", atleet: "Water Speed", land: "France" },
-            { sport: "schermen", record: "15 punten", atleet: "Blade Master", land: "Italy" }
-        ];
 
-        function updateRecords() {
-            let selectedSport = document.getElementById("sportSelect").value;
-            let tableBody = document.getElementById("recordTable");
-            tableBody.innerHTML = "";
+<div class="nav">
+    <a href="index.html">🏠 Home</a>
+    <a href="manager.html">👤 Manager</a>
+</div>
 
-            let filteredRecords = selectedSport === "alle" ? recordsData : recordsData.filter(r => r.sport === selectedSport);
+<div class="container">
+    <h1>Wereldrecords & Nationale Records 📊</h1>
+    <p>Bekijk de beste prestaties ooit.</p>
 
-            filteredRecords.forEach(record => {
-                let row = `<tr>
-                    <td>${record.sport.replace(/100m|200m|400m|marathon|zwemmen100m|zwemmen200m|schermen/, match => {
-                        return {
-                            "100m": "Atletiek - 100m Sprint",
-                            "200m": "Atletiek - 200m Sprint",
-                            "400m": "Atletiek - 400m",
-                            "marathon": "Atletiek - Marathon",
-                            "zwemmen100m": "Zwemmen - 100m Vrije Slag",
-                            "zwemmen200m": "Zwemmen - 200m Vrije Slag",
-                            "schermen": "Schermen - Sabel Individueel"
-                        }[match];
-                    })}</td>
-                    <td>${record.record}</td>
-                    <td>${record.atleet}</td>
-                    <td>${record.land}</td>
-                </tr>`;
-                tableBody.innerHTML += row;
-            });
-        }
+    <table>
+        <thead>
+            <tr>
+                <th>Evenement</th>
+                <th>MR - Wereldrecord</th>
+                <th>NR - Nationaal record</th>
+            </tr>
+        </thead>
+        <tbody id="recordTabel">
+            <tr><td>100m Sprint</td><td>9.58s - 🇯🇲 Usain Bolt</td><td>9.87s - 🇳🇱 Churandy Martina</td></tr>
+            <tr><td>Marathon</td><td>2:01:39 - 🇰🇪 Eliud Kipchoge</td><td>2:06:17 - 🇫🇷 Benoit Zwierzchiewski</td></tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    let records = [
+        { event: "100m Sprint", mr: "9.58s - 🇯🇲 Usain Bolt", nr: "9.87s - 🇳🇱 Churandy Martina" },
+        { event: "Marathon", mr: "2:01:39 - 🇰🇪 Eliud Kipchoge", nr: "2:06:17 - 🇫🇷 Benoit Zwierzchiewski" },
+        { event: "Hoogspringen", mr: "2.45m - 🇨🇺 Javier Sotomayor", nr: "2.32m - 🇳🇱 Douwe Amels" }
+    ];
 
-        window.onload = updateRecords;
-    </script>
+    function updateRecords() {
+        let tabelBody = document.getElementById("recordTabel");
+        tabelBody.innerHTML = "";
+
+        records.forEach(entry => {
+            let row = `<tr>
+                <td>${entry.event}</td>
+                <td>${entry.mr}</td>
+                <td>${entry.nr}</td>
+            </tr>`;
+            tabelBody.innerHTML += row;
+        });
+    }
+
+    window.onload = updateRecords;
+</script>
 </body>
 </html>
