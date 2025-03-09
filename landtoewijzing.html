@@ -35,6 +35,8 @@
 
         if (gebruikersnaam && email && wachtwoord) {
             let toegewezenLanden = JSON.parse(localStorage.getItem("toegewezenLanden")) || [];
+
+            // Zoek het eerste land dat nog niet is toegewezen
             let beschikbaarLand = landen[toegewezenLanden.length];
 
             if (!beschikbaarLand) {
@@ -42,6 +44,7 @@
                 return;
             }
 
+            // Sla het toegewezen land op in LocalStorage
             toegewezenLanden.push(beschikbaarLand);
             localStorage.setItem("toegewezenLanden", JSON.stringify(toegewezenLanden));
             localStorage.setItem("mijnLand", beschikbaarLand);
