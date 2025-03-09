@@ -18,14 +18,20 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        .sport-titel {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #007bff;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 10px;
         }
         th, td {
             border: 1px solid #ddd;
-            padding: 10px;
+            padding: 8px;
             text-align: center;
         }
         th {
@@ -44,54 +50,58 @@
     <h1>Atletenbeheer 👥</h1>
     <p>Bekijk en beheer je atleten per evenement.</p>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Naam</th>
-                <th>Sport</th>
-                <th>Evenement</th>
-            </tr>
-        </thead>
-        <tbody id="atletenTabel"></tbody>
-    </table>
+    <div id="atletenContainer"></div>
 </div>
 <script>
     let land = localStorage.getItem("mijnLand") || "Onbekend";
 
     let namenPerLand = {
-        "Nederland": ["Jansen", "Van Dijk", "De Vries", "Bos", "Smits"],
-        "Frankrijk": ["Lefevre", "Moreau", "Dubois", "Fontaine", "Gauthier"],
-        "Duitsland": ["Müller", "Schmidt", "Schneider", "Fischer", "Weber"],
-        "Italië": ["Rossi", "Bianchi", "Romano", "Moretti", "Lombardi"],
-        "Spanje": ["Garcia", "Lopez", "Martinez", "Fernandez", "Gomez"],
-        "Verenigde Staten": ["Smith", "Johnson", "Williams", "Brown", "Jones"]
+        "Nederland": {
+            voornamen: ["Jan", "Piet", "Hendrik", "Bram", "Daan"],
+            achternamen: ["Jansen", "Van Dijk", "De Vries", "Bos", "Smits"]
+        },
+        "Frankrijk": {
+            voornamen: ["Louis", "Pierre", "Jean", "Claude", "Nicolas"],
+            achternamen: ["Lefevre", "Dubois", "Fontaine", "Gauthier", "Moreau"]
+        },
+        "Duitsland": {
+            voornamen: ["Hans", "Klaus", "Lukas", "Johann", "Maximilian"],
+            achternamen: ["Müller", "Schmidt", "Schneider", "Fischer", "Weber"]
+        }
     };
 
     let sporten = [
-        { sport: "Atletiek", evenement: "100m Sprint" },
-        { sport: "Atletiek", evenement: "400m" },
-        { sport: "Zwemmen", evenement: "100m Vrije Slag" },
-        { sport: "Gewichtheffen", evenement: "Eenarmig (Open)" },
-        { sport: "Schoonspringen", evenement: "Hoogduiken" },
-        { sport: "Touwtrekken", evenement: "Teamwedstrijd" }
+        { sport: "Atletiek", evenement: "100m Sprint", aantal: 3 },
+        { sport: "Atletiek", evenement: "400m", aantal: 3 },
+        { sport: "Zwemmen", evenement: "100m Vrije Slag", aantal: 3 },
+        { sport: "Gewichtheffen", evenement: "Eenarmig (Open)", aantal: 3 },
+        { sport: "Schoonspringen", evenement: "Hoogduiken", aantal: 3 },
+        { sport: "Touwtrekken", evenement: "Teamwedstrijd", aantal: 6 }
     ];
 
     function genereerAtleten() {
         let atleten = JSON.parse(localStorage.getItem("atleten")) || [];
 
         if (atleten.length === 0) {
-            let beschikbareNamen = namenPerLand[land] || ["Doe", "Smith", "Lee", "Patel", "Nguyen"];
-            
-            for (let i = 0; i < 3; i++) {
-                let naam = beschikbareNamen[Math.floor(Math.random() * beschikbareNamen.length)];
-                let gekozenSport = sporten[i % sporten.length];
+            let beschikbareNamen = namenPerLand[land] || { voornamen: ["Alex"], achternamen: ["Doe"] };
 
-                atleten.push({
-                    naam: naam,
-                    sport: gekozenSport.sport,
-                    evenement: gekozenSport.evenement
-                });
-            }
+            sporten.forEach(onderdeel => {
+                for (let i = 0; i < onderdeel.aantal; i++) {
+                    let voornaam = beschikbareNamen.voornamen[Math.floor(Math.random() * beschikbareNamen.voornamen.length)];
+                    let achternaam = beschikbareNamen.achternamen[Math.floor(Math.random() * beschikbareNamen.achternamen.length)];
+                    let naam = `${voornaam} ${achternaam}`;
+
+                    atleten.push({
+                        naam: naam,
+                        sport: onderdeel.sport,
+                        evenement: onderdeel.evenement,
+                        snelheid: Math.floor(Math.random() * 100),
+                        kracht: Math.floor(Math.random() * 100),
+                        techniek: Math.floor(Math.random() * 100),
+                        uithoudingsvermogen: Math.floor(Math.random() * 100)
+                    });
+                }
+            });
 
             localStorage.setItem("atleten", JSON.stringify(atleten));
         }
@@ -100,16 +110,60 @@
     }
 
     function toonAtleten(atleten) {
-        let tabelBody = document.getElementById("atletenTabel");
-        tabelBody.innerHTML = "";
+        let container = document.getElementById("atletenContainer");
+        container.innerHTML = "";
 
+        let sportGroepen = {};
         atleten.forEach(atleet => {
-            let rij = `<tr>
-                <td>${atleet.naam}</td>
-                <td>${atleet.sport}</td>
-                <td>${atleet.evenement}</td>
-            </tr>`;
-            tabelBody.innerHTML += rij;
+            if (!sportGroepen[atleet.sport]) {
+                sportGroepen[atleet.sport] = {};
+            }
+            if (!sportGroepen[atleet.sport][atleet.evenement]) {
+                sportGroepen[atleet.sport][atleet.evenement] = [];
+            }
+            sportGroepen[atleet.sport][atleet.evenement].push(atleet);
+        });
+
+        Object.keys(sportGroepen).forEach(sport => {
+            let sportTitel = document.createElement("h2");
+            sportTitel.classList.add("sport-titel");
+            sportTitel.textContent = sport;
+            container.appendChild(sportTitel);
+
+            Object.keys(sportGroepen[sport]).forEach(evenement => {
+                let eventTitel = document.createElement("h3");
+                eventTitel.textContent = evenement;
+                container.appendChild(eventTitel);
+
+                let table = document.createElement("table");
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th>Snelheid</th>
+                            <th>Kracht</th>
+                            <th>Techniek</th>
+                            <th>Uithoudingsvermogen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                `;
+
+                let tbody = table.querySelector("tbody");
+                sportGroepen[sport][evenement].forEach(atleet => {
+                    let rij = `<tr>
+                        <td>${atleet.naam}</td>
+                        <td>${atleet.snelheid}</td>
+                        <td>${atleet.kracht}</td>
+                        <td>${atleet.techniek}</td>
+                        <td>${atleet.uithoudingsvermogen}</td>
+                    </tr>`;
+                    tbody.innerHTML += rij;
+                });
+
+                container.appendChild(table);
+            });
         });
     }
 
