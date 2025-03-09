@@ -56,3 +56,23 @@
         </form>
         <p id="responseMessage"></p>
     </div>
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let message = document.getElementById("message").value;
+
+            if (!name || !email || !message) {
+                document.getElementById("responseMessage").textContent = "Vul alle velden in!";
+                return;
+            }
+
+            document.getElementById("responseMessage").textContent = 
+                "Bedankt voor je bericht! We nemen zo snel mogelijk contact met je op.";
+            document.getElementById("contactForm").reset();
+        });
+    </script>
+</body>
+</html>
