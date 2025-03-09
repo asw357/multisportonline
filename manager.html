@@ -10,6 +10,20 @@
             text-align: center;
             background-color: #f4f4f4;
         }
+        .nav {
+            display: flex;
+            justify-content: center;
+            background-color: #007bff;
+            padding: 10px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+        }
+        .nav a:hover {
+            background-color: #0056b3;
+        }
         .container {
             max-width: 800px;
             margin: 50px auto;
@@ -17,15 +31,6 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .log {
-            text-align: left;
-            max-height: 300px;
-            overflow-y: scroll;
-            border: 1px solid #ccc;
-            padding: 10px;
-            background: #f9f9f9;
-            margin-top: 10px;
         }
     </style>
 </head>
@@ -39,42 +44,17 @@
 <div class="container">
     <h1>Managerpagina</h1>
 
-    <h2>Meldingen 📢</h2>
+    <h2>Teambeheer 👥</h2>
+    <a href="atletenbeheer.html">Beheer Atleten</a>
+    <a href="trainingspagina.html">Training</a>
+    <a href="scouting.html">Scouting</a>
+    <a href="strategieselectie.html">Strategieën</a>
+
+    <h2>Meldingen & Aankomende Edities 📢</h2>
     <div class="log" id="meldingen">
         <p>Geen nieuwe meldingen.</p>
     </div>
-
-    <h2>Aankomende Edities 📆</h2>
-    <div class="log" id="edities">
-        <p>Volgende edities worden geladen...</p>
-    </div>
 </div>
-<script>
-    function toonMelding(bericht) {
-        let logDiv = document.getElementById("meldingen");
-        let nieuwBericht = document.createElement("p");
-        nieuwBericht.textContent = bericht;
-        logDiv.appendChild(nieuwBericht);
-        logDiv.scrollTop = logDiv.scrollHeight;
-    }
-
-    function laadAankomendeEdities() {
-        let editiesDiv = document.getElementById("edities");
-        editiesDiv.innerHTML = `
-            <p>🏅 **Editie 2**: Voegt Cricket & Worstelen toe, Schermen (Leraren) verdwijnt.</p>
-            <p>🏅 **Editie 3**: Motorbootracen Klasse A verdwijnt, Klasse B komt erbij.</p>
-            <p>🏅 **Editie 4**: Paardensport toegevoegd.</p>
-        `;
-    }
-
-    // Voorbeeldmeldingen
-    toonMelding("⚠️ Let op! Schermen (Leraren) verdwijnt in Editie 2.");
-    toonMelding("✅ Nieuwe sport: Cricket toegevoegd voor Editie 2!");
-    toonMelding("🛶 Motorbootracen Klasse A verdwijnt na Editie 3.");
-    toonMelding("🏇 Paardensport wordt toegevoegd in Editie 4.");
-
-    window.onload = laadAankomendeEdities;
-</script>
 
 </body>
 </html>
