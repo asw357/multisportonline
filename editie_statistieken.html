@@ -70,3 +70,47 @@
             </tbody>
         </table>
     </div>
+    <script>
+        let editieData = {
+            "1": [
+                { sport: "Atletiek - 100m Sprint", goud: "USA", zilver: "Jamaica", brons: "Frankrijk" },
+                { sport: "Atletiek - 200m Sprint", goud: "Jamaica", zilver: "USA", brons: "Duitsland" },
+                { sport: "Zwemmen - 100m Vrije Slag", goud: "Australië", zilver: "USA", brons: "Nederland" },
+                { sport: "Schermen - Sabel Individueel", goud: "Italië", zilver: "Frankrijk", brons: "Rusland" }
+            ],
+            "2": [
+                { sport: "Atletiek - 100m Sprint", goud: "Canada", zilver: "Jamaica", brons: "Frankrijk" },
+                { sport: "Atletiek - 200m Sprint", goud: "USA", zilver: "Jamaica", brons: "Nederland" },
+                { sport: "Zwemmen - 100m Vrije Slag", goud: "Frankrijk", zilver: "Australië", brons: "USA" },
+                { sport: "Schermen - Sabel Individueel", goud: "Rusland", zilver: "Italië", brons: "Frankrijk" }
+            ],
+            "3": [
+                { sport: "Atletiek - 100m Sprint", goud: "Jamaica", zilver: "USA", brons: "Frankrijk" },
+                { sport: "Atletiek - 200m Sprint", goud: "Duitsland", zilver: "Jamaica", brons: "Nederland" },
+                { sport: "Zwemmen - 100m Vrije Slag", goud: "USA", zilver: "Australië", brons: "Frankrijk" },
+                { sport: "Schermen - Sabel Individueel", goud: "Frankrijk", zilver: "Rusland", brons: "Italië" }
+            ]
+        };
+
+        function updateEditieStatistieken() {
+            let selectedEditie = document.getElementById("editieSelect").value;
+            let tableBody = document.getElementById("editieTable");
+            tableBody.innerHTML = "";
+
+            let selectedData = editieData[selectedEditie] || [];
+
+            selectedData.forEach(event => {
+                let row = `<tr>
+                    <td>${event.sport}</td>
+                    <td>${event.goud}</td>
+                    <td>${event.zilver}</td>
+                    <td>${event.brons}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        window.onload = updateEditieStatistieken;
+    </script>
+</body>
+</html>
