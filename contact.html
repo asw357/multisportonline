@@ -37,6 +37,14 @@
     </style>
 </head>
 <body>
+    <nav>
+        <a href="index.html">🏠 Home</a> |
+        <a href="register.html">📝 Registreren</a> |
+        <a href="login.html">🔑 Inloggen</a> |
+        <a href="logout.html">🚪 Uitloggen</a> |
+        <a href="contact.html">📧 Contact</a> |
+        <a href="uitleg.html">ℹ️ Uitleg</a>
+    </nav>
     <div class="container">
         <h2>Contacteer ons</h2>
         <p>Heb je vragen of feedback? Laat het ons weten!</p>
@@ -48,23 +56,3 @@
         </form>
         <p id="responseMessage"></p>
     </div>
-
-    <script>
-        document.getElementById("contactForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            let name = document.getElementById("name").value;
-            let email = document.getElementById("email").value;
-            let message = document.getElementById("message").value;
-
-            if (!name || !email || !message) {
-                document.getElementById("responseMessage").textContent = "Vul alle velden in!";
-                return;
-            }
-
-            document.getElementById("responseMessage").textContent = "Bedankt voor je bericht! We nemen zo snel mogelijk contact met je op.";
-            document.getElementById("contactForm").reset();
-        });
-    </script>
-</body>
-</html>
