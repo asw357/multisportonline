@@ -11,7 +11,7 @@
             background-color: #f4f4f4;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 50px auto;
             background: white;
             padding: 20px;
@@ -20,7 +20,7 @@
         }
         .sport-titel {
             margin-top: 20px;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             color: #007bff;
         }
@@ -38,6 +38,14 @@
             background-color: #007bff;
             color: white;
         }
+        .btn-ontslaan {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -54,30 +62,23 @@
 </div>
 <script>
     let land = localStorage.getItem("mijnLand") || "Onbekend";
+    let mpSaldo = parseInt(localStorage.getItem("medalPoints")) || 100;
 
     let namenPerLand = {
-        "Nederland": {
-            voornamen: ["Jan", "Piet", "Hendrik", "Bram", "Daan"],
-            achternamen: ["Jansen", "Van Dijk", "De Vries", "Bos", "Smits"]
-        },
-        "Frankrijk": {
-            voornamen: ["Louis", "Pierre", "Jean", "Claude", "Nicolas"],
-            achternamen: ["Lefevre", "Dubois", "Fontaine", "Gauthier", "Moreau"]
-        },
-        "Duitsland": {
-            voornamen: ["Hans", "Klaus", "Lukas", "Johann", "Maximilian"],
-            achternamen: ["Müller", "Schmidt", "Schneider", "Fischer", "Weber"]
-        }
+        "Nederland": { voornamen: ["Jan", "Piet", "Hendrik", "Bram", "Daan"], achternamen: ["Jansen", "Van Dijk", "De Vries", "Bos", "Smits"] },
+        "Frankrijk": { voornamen: ["Louis", "Pierre", "Jean", "Claude", "Nicolas"], achternamen: ["Lefevre", "Dubois", "Fontaine", "Gauthier", "Moreau"] },
+        "Duitsland": { voornamen: ["Hans", "Klaus", "Lukas", "Johann", "Maximilian"], achternamen: ["Müller", "Schmidt", "Schneider", "Fischer", "Weber"] }
     };
 
     let sporten = [
         { sport: "Atletiek", evenement: "100m Sprint", aantal: 3 },
         { sport: "Atletiek", evenement: "400m", aantal: 3 },
+        { sport: "Atletiek", evenement: "Marathon", aantal: 3 },
         { sport: "Zwemmen", evenement: "100m Vrije Slag", aantal: 3 },
         { sport: "Gewichtheffen", evenement: "Eenarmig (Open)", aantal: 3 },
         { sport: "Schoonspringen", evenement: "Hoogduiken", aantal: 3 },
         { sport: "Touwtrekken", evenement: "Teamwedstrijd", aantal: 9 },
-        { sport: "Zeilen", evenement: "0,5 ton", aantal: 4 } // 2 boten met 2 of 3 atleten per boot
+        { sport: "Zeilen", evenement: "0,5 ton", aantal: 4 }
     ];
 
     function genereerAtleten() {
@@ -85,12 +86,18 @@
 
         if (atleten.length === 0) {
             let beschikbareNamen = namenPerLand[land] || { voornamen: ["Alex"], achternamen: ["Doe"] };
+            let gebruikteNamen = new Set();
 
             sporten.forEach(onderdeel => {
                 for (let i = 0; i < onderdeel.aantal; i++) {
-                    let voornaam = beschikbareNamen.voornamen[Math.floor(Math.random() * beschikbareNamen.voornamen.length)];
-                    let achternaam = beschikbareNamen.achternamen[Math.floor(Math.random() * beschikbareNamen.achternamen.length)];
-                    let naam = `${voornaam} ${achternaam}`;
+                    let voornaam, achternaam, naam;
+                    do {
+                        voornaam = beschikbareNamen.voornamen[Math.floor(Math.random() * beschikbareNamen.voornamen.length)];
+                        achternaam = beschikbareNamen.achternamen[Math.floor(Math.random() * beschikbareNamen.achternamen.length)];
+                        naam = `${voornaam} ${achternaam}`;
+                    } while (gebruikteNamen.has(naam));
+                    
+                    gebruikteNamen.add(naam);
 
                     atleten.push({
                         naam: naam,
@@ -109,7 +116,6 @@
 
         toonAtleten(atleten);
     }
-
     function toonAtleten(atleten) {
         let container = document.getElementById("atletenContainer");
         container.innerHTML = "";
@@ -145,6 +151,7 @@
                             <th>Kracht</th>
                             <th>Techniek</th>
                             <th>Uithoudingsvermogen</th>
+                            <th>Actie</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -152,13 +159,14 @@
                 `;
 
                 let tbody = table.querySelector("tbody");
-                sportGroepen[sport][evenement].forEach(atleet => {
+                sportGroepen[sport][evenement].forEach((atleet, index) => {
                     let rij = `<tr>
                         <td>${atleet.naam}</td>
                         <td>${atleet.snelheid}</td>
                         <td>${atleet.kracht}</td>
                         <td>${atleet.techniek}</td>
                         <td>${atleet.uithoudingsvermogen}</td>
+                        <td><button class="btn-ontslaan" onclick="ontslaan(${index})">❌</button></td>
                     </tr>`;
                     tbody.innerHTML += rij;
                 });
@@ -168,8 +176,14 @@
         });
     }
 
+    function ontslaan(index) {
+        let atleten = JSON.parse(localStorage.getItem("atleten"));
+        if (mpSaldo >= 10) {
+            atleten.splice(index, 1);
+            localStorage.setItem("atleten", JSON.stringify(atleten));
+            toonAtleten(atleten);
+        }
+    }
+
     window.onload = genereerAtleten;
 </script>
-
-</body>
-</html>
