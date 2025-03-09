@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trainingen - MultisportOnline</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .log {
+            text-align: left;
+            max-height: 200px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: #f9f9f9;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <a href="index.html">🏠 Home</a>
+    <a href="manager.html">🎖️ Manager</a>
+    <a href="strategieselectie.html">🧠 Strategie</a>
+    <a href="simulatie.html">🏆 Simulatie</a>
+    <a href="logout.html">🚪 Uitloggen</a>
+</div>
+
+<div class="container">
+    <h1>Trainingen 💪</h1>
+    <p>Selecteer een atleet en een trainingstype.</p>
+
+    <select id="atleetSelect">
+        <option value="1">Atleet 1</option>
+        <option value="2">Atleet 2</option>
+        <option value="3">Atleet 3</option>
+    </select>
+
+    <select id="trainingSelect">
+        <option value="sprint">Sprinttraining (10 MP) ⚡</option>
+        <option value="kracht">Krachttraining (15 MP) 💪</option>
+        <option value="techniek">Techniektraining (8 MP) 🎯</option>
+        <option value="uithouding">Uithoudingstraining (12 MP) 🏃‍♂️</option>
+        <option value="herstel">Hersteltraining (6 MP) 💤</option>
+    </select>
+
+    <button class="button" onclick="startTraining()">Start Training</button>
+
+    <h2>Training Log 📜</h2>
+    <div class="log" id="trainingLog">
+        <p>Nog geen trainingen gestart.</p>
+    </div>
+</div>
+
+<script>
+    let mpSaldo = 100; // Simulatie van de Medal Points
+
+    function startTraining() {
+        let atleet = document.getElementById("atleetSelect").value;
+        let training = document.getElementById("trainingSelect").value;
+        let logDiv = document.getElementById("trainingLog");
+        let nieuwBericht = document.createElement("p");
+
+        let trainingskosten = {
+            "sprint": 10,
+            "kracht": 15,
+            "techniek": 8,
+            "uithouding": 12,
+            "herstel": 6
+        };
+
+        if (mpSaldo >= trainingskosten[training]) {
+            mpSaldo -= trainingskosten[training];
+            nieuwBericht.textContent = `Atleet ${atleet} heeft ${training} gevolgd. Eigenschappen verbeterd! (MP -${trainingskosten[training]})`;
+        } else {
+            nieuwBericht.textContent = "Niet genoeg MP voor deze training!";
+        }
+
+        logDiv.appendChild(nieuwBericht);
+        logDiv.scrollTop = logDiv.scrollHeight;
+    }
+</script>
+
+</body>
+</html>
