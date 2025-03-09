@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uitloggen - MultisportOnline</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Uitloggen</h2>
+        <p>Weet je zeker dat je wilt uitloggen?</p>
+        <button onclick="logout()">Uitloggen</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        function logout() {
+            sessionStorage.removeItem("loggedInUser");
+            document.getElementById("message").textContent = "Je bent uitgelogd!";
+            
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
