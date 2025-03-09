@@ -17,36 +17,53 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #007bff;
-        }
-        p {
             text-align: left;
-            margin: 10px 0;
         }
-        ul {
-            text-align: left;
-            margin: 10px 20px;
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">🏠 Home</a> |
-        <a href="register.html">📝 Registreren</a> |
-        <a href="login.html">🔑 Inloggen</a> |
-        <a href="logout.html">🚪 Uitloggen</a> |
-        <a href="contact.html">📧 Contact</a> |
-        <a href="uitleg.html">ℹ️ Uitleg</a>
-    </nav>
-    <div class="container">
-        <h2>Hoe werkt MultisportOnline?</h2>
-        <p>Welkom bij MultisportOnline! Dit is een online managementspel waarin jij als speler een land toegewezen krijgt en atleten traint om deel te nemen aan verschillende sportevenementen.</p>
-        
-        <h3>🔹 Hoe begin je?</h3>
-        <ul>
-            <li>Registreer een account en log in.</li>
-            <li>Je krijgt automatisch een land toegewezen.</li>
-            <li>Beheer je atleten, train ze en stel ze op voor wedstrijden.</li>
-        </ul>
+
+<div class="nav">
+    <a href="index.html">🏠 Home</a>
+</div>
+
+<div class="container">
+    <h1>Uitleg & Spelregels 📖</h1>
+
+    <h2>🔹 Doel van het spel</h2>
+    <p>Je bent de manager van een nationaal team en moet je atleten begeleiden naar succes.</p>
+
+    <h2>🔹 Hoe werkt het?</h2>
+    <ul>
+        <li>📌 **Inschrijven:** Je krijgt een willekeurig land toegewezen.</li>
+        <li>🎽 **Atleten beheren:** Train en scout nieuwe atleten.</li>
+        <li>🧠 **Strategieën kiezen:** Stel per wedstrijd een strategie in.</li>
+        <li>🏆 **Wedstrijden simuleren:** Zie hoe je team presteert in realistische simulaties.</li>
+        <li>🥇 **Medailles verdienen:** Verdien Medal Points (MP) en verbeter je team.</li>
+    </ul>
+
+    <h2>🔹 Belangrijke regels</h2>
+    <ul>
+        <li>❌ Spelers kunnen hun land niet veranderen.</li>
+        <li>⚡ Maximaal 3 trainingen per atleet per 48 uur.</li>
+        <li>⏳ Strategieën moeten vóór de wedstrijd ingesteld worden.</li>
+        <li>🔎 Scouting is beperkt per evenement.</li>
+    </ul>
+
+    <button class="button" onclick="window.location.href='register.html'">Nu Registreren</button>
+</div>
+
+</body>
+</html>
