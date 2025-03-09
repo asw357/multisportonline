@@ -30,25 +30,12 @@
         .button:hover {
             background-color: #0056b3;
         }
-        .log {
-            text-align: left;
-            max-height: 200px;
-            overflow-y: scroll;
-            border: 1px solid #ccc;
-            padding: 10px;
-            background: #f9f9f9;
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
 
 <div class="nav">
-    <a href="index.html">🏠 Home</a>
-    <a href="manager.html">🎖️ Manager</a>
-    <a href="strategieselectie.html">🧠 Strategie</a>
-    <a href="simulatie.html">🏆 Simulatie</a>
-    <a href="logout.html">🚪 Uitloggen</a>
+    <a href="atletenbeheer.html">🔙 Terug naar Atletenbeheer</a>
 </div>
 
 <div class="container">
@@ -65,44 +52,14 @@
         <option value="sprint">Sprinttraining (10 MP) ⚡</option>
         <option value="kracht">Krachttraining (15 MP) 💪</option>
         <option value="techniek">Techniektraining (8 MP) 🎯</option>
-        <option value="uithouding">Uithoudingstraining (12 MP) 🏃‍♂️</option>
-        <option value="herstel">Hersteltraining (6 MP) 💤</option>
     </select>
 
     <button class="button" onclick="startTraining()">Start Training</button>
-
-    <h2>Training Log 📜</h2>
-    <div class="log" id="trainingLog">
-        <p>Nog geen trainingen gestart.</p>
-    </div>
 </div>
 
 <script>
-    let mpSaldo = 100; // Simulatie van de Medal Points
-
     function startTraining() {
-        let atleet = document.getElementById("atleetSelect").value;
-        let training = document.getElementById("trainingSelect").value;
-        let logDiv = document.getElementById("trainingLog");
-        let nieuwBericht = document.createElement("p");
-
-        let trainingskosten = {
-            "sprint": 10,
-            "kracht": 15,
-            "techniek": 8,
-            "uithouding": 12,
-            "herstel": 6
-        };
-
-        if (mpSaldo >= trainingskosten[training]) {
-            mpSaldo -= trainingskosten[training];
-            nieuwBericht.textContent = `Atleet ${atleet} heeft ${training} gevolgd. Eigenschappen verbeterd! (MP -${trainingskosten[training]})`;
-        } else {
-            nieuwBericht.textContent = "Niet genoeg MP voor deze training!";
-        }
-
-        logDiv.appendChild(nieuwBericht);
-        logDiv.scrollTop = logDiv.scrollHeight;
+        alert("Training gestart!");
     }
 </script>
 
