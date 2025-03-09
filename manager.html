@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager - MultisportOnline</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .log {
+            text-align: left;
+            max-height: 200px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: #f9f9f9;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <a href="index.html">🏠 Home</a>
+    <a href="trainingspagina.html">💪 Training</a>
+    <a href="strategieselectie.html">🧠 Strategie</a>
+    <a href="simulatie.html">🏆 Simulatie</a>
+    <a href="logout.html">🚪 Uitloggen</a>
+</div>
+
+<div class="container">
+    <h1>Managerpagina</h1>
+    <h2>Jouw Team</h2>
+    <button class="button" onclick="window.location.href='atletenbeheer.html'">👥 Beheer Atleten</button>
+    <button class="button" onclick="window.location.href='trainingspagina.html'">💪 Trainingen</button>
+    <button class="button" onclick="window.location.href='strategieselectie.html'">🧠 Strategieën</button>
+
+    <h2>Prijzenkast 🏆</h2>
+    <div id="prijzenkast">
+        <p>Nog geen prijzen gewonnen.</p>
+    </div>
+
+    <h2>Records (MR/NR) 📊</h2>
+    <div id="records">
+        <p>Geen records geregistreerd.</p>
+    </div>
+
+    <h2>Meldingen 📢</h2>
+    <div class="log" id="meldingen">
+        <p>Geen nieuwe meldingen.</p>
+    </div>
+</div>
+
+<script>
+    function toonMelding(bericht) {
+        let logDiv = document.getElementById("meldingen");
+        let nieuwBericht = document.createElement("p");
+        nieuwBericht.textContent = bericht;
+        logDiv.appendChild(nieuwBericht);
+        logDiv.scrollTop = logDiv.scrollHeight;
+    }
+
+    // Voorbeeldmeldingen
+    toonMelding("Atleet Jan de Vries heeft een blessure opgelopen! 🚑");
+    toonMelding("Nieuwe sport toegevoegd: Cricket! 🏏");
+    toonMelding("Je hebt een wereldrecord verbeterd in gewichtheffen! 💪");
+</script>
+
+</body>
+</html>
