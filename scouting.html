@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scouting - MultisportOnline</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .log {
+            text-align: left;
+            max-height: 200px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: #f9f9f9;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <a href="atletenbeheer.html">🔙 Terug naar Atletenbeheer</a>
+</div>
+
+<div class="container">
+    <h1>Scouting 🔎</h1>
+    <p>Selecteer een sport en ontdek nieuwe talenten!</p>
+
+    <select id="sportSelect">
+        <option value="100m">Atletiek - 100m</option>
+        <option value="400m">Atletiek - 400m</option>
+        <option value="kogelstoten">Atletiek - Kogelstoten</option>
+        <option value="zwemmen">Zwemmen - 100m Vrije slag</option>
+        <option value="touwtrekken">Touwtrekken</option>
+    </select>
+
+    <button class="button" onclick="scoutAtleten()">Start Scouting (10 MP)</button>
+
+    <h2>Beschikbare Atleten 📋</h2>
+    <div class="log" id="scoutLog">
+        <p>Nog geen scouting uitgevoerd.</p>
+    </div>
+</div>
+
+<script>
+    let mpSaldo = 100; // Simulatie van Medal Points
+    let scoutingBeurten = {}; // Per evenement max 3 scouts
+
+    function scoutAtleten() {
+        let sport = document.getElementById("sportSelect").value;
+        let logDiv = document.getElementById("scoutLog");
+
+        if (!scoutingBeurten[sport]) scoutingBeurten[sport] = 0;
+        if (scoutingBeurten[sport] >= 3) {
+            alert("Je hebt al 3 keer gescout voor dit evenement!");
+            return;
+        }
+
+        if (mpSaldo < 10) {
+            alert("Niet genoeg MP om te scouten!");
+            return;
+        }
+
+        mpSaldo -= 10;
+        scoutingBeurten[sport]++;
+
+        let atleten = [
+            { naam: "Liam Johnson", kracht: Math.floor(Math.random() * 100) },
+            { naam: "Carlos Martinez", kracht: Math.floor(Math.random() * 100) },
+            { naam: "Hans Müller", kracht: Math.floor(Math.random() * 100) },
+            { naam: "Pierre Dupont", kracht: Math.floor(Math.random() * 100) },
+            { naam: "Yuuki Tanaka", kracht: Math.floor(Math.random() * 100) }
+        ];
+
+        let geselecteerdeAtleten = atleten.sort(() => 0.5 - Math.random()).slice(0, 5);
+
+        let resultaat = `<p><strong>Geslecteerde atleten voor ${sport}:</strong></p>`;
+        geselecteerdeAtleten.forEach(atleet => {
+            resultaat += `<p>🏃 ${atleet.naam} - Kracht: ${atleet.kracht}</p>`;
+        });
+
+        logDiv.innerHTML = resultaat;
+    }
+</script>
+
+</body>
+</html>
