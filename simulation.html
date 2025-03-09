@@ -59,6 +59,12 @@
         <h1>Realistische Wedstrijdsimulatie</h1>
         <p>Kies een sport en simuleer een echte wedstrijd:</p>
         <select id="sportSelect">
+            <optgroup label="Gewichtheffen">
+                <option value="Eenarmig (Open)">Eenarmig (Open)</option>
+            </optgroup>
+            <optgroup label="Schoonspringen">
+                <option value="Hoogduiken">Hoogduiken</option>
+            </optgroup>
             <optgroup label="Atletiek - Sprint & Loopnummers">
                 <option value="100m">100m Sprint</option>
                 <option value="400m">400m</option>
@@ -96,15 +102,6 @@
             <optgroup label="Touwtrekken">
                 <option value="Touwtrekken">Touwtrekken</option>
             </optgroup>
-            <optgroup label="Gewichtheffen">
-                <option value="Eenarmig (Open)">Eenarmig (Open)</option>
-            </optgroup>
-            <optgroup label="Schoonspringen">
-                <option value="Hoogduiken">Hoogduiken</option>
-            </optgroup>
-            <optgroup label="Zeilen">
-                <option value="0,5 ton">0,5 ton</option>
-            </optgroup>
             <optgroup label="Wielersport">
                 <option value="Tijdrit 1000m">Tijdrit, 1000m</option>
                 <option value="10km">10 km</option>
@@ -117,23 +114,20 @@
                 <option value="1200m vrije slag">1200 m vrije slag</option>
             </optgroup>
         </select>
-        <button onclick="simulateEvent()">Start
-::contentReference[oaicite:5]{index=5}
-         </button>
+        <button onclick="simulateEvent()">Start Wedstrijd</button>
         <div class="log" id="gameLog"></div>
         <table class="leaderboard" id="leaderboard">
             <thead>
                 <tr>
                     <th>Positie</th>
                     <th>Atleet</th>
-                    <th>Afstand/Tijd</th>
+                    <th>Score/Afstand/Tijd</th>
                 </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
     </div>
-
     <script>
         let raceInProgress = false;
 
@@ -151,7 +145,7 @@
                 "1500m": 210000,
                 "110m Horden": 12000,
                 "Marathon": 7200000,
-                "Touwklimmen": 30000, // Historisch rond 30 sec
+                "Touwklimmen": 30000,
                 "Touwtrekken": 30000,
                 "Hink-stap-springen": 60000,
                 "Hoogspringen": 60000,
@@ -165,28 +159,32 @@
                 "12 uur": 43200000,
                 "Eenarmig (Open)": 90000,
                 "Hoogduiken": 45000,
-                "0,5 ton": 300000
+                "0,5 ton": 300000,
+                "Militair pistool 25m": 40000,
+                "Vrij geweer 300m": 90000
             };
             return durations[sport] || 60000;
         }
 
         function generateAthletes() {
             let names = ["Atleet 1", "Atleet 2", "Atleet 3", "Atleet 4", "Atleet 5", "Atleet 6", "Atleet 7", "Atleet 8"];
-            return names.map(name => ({ name, progress: 0 }));
+            return names.map(name => ({ name, progress: 0, score: 0 }));
         }
 
-        function updateLeaderboard(atleten) {
+        function updateLeaderboard(atleten, isScoreBased = false) {
             let leaderboardBody = document.getElementById("leaderboard").querySelector("tbody");
             leaderboardBody.innerHTML = "";
             atleten.forEach((atleet, index) => {
+                let value = isScoreBased ? `${atleet.score} punten` : `${atleet.progress.toFixed(1)} m`;
                 let row = `<tr>
                     <td>${index + 1}</td>
                     <td>${atleet.name}</td>
-                    <td>${atleet.progress.toFixed(1)} m</td>
+                    <td>${value}</td>
                 </tr>`;
                 leaderboardBody.innerHTML += row;
             });
         }
+
         function simulateEvent() {
             if (raceInProgress) return;
             raceInProgress = true;
@@ -195,25 +193,32 @@
             document.getElementById("gameLog").innerHTML = "";
             document.getElementById("leaderboard").querySelector("tbody").innerHTML = "";
 
-            logMessage(`🏁 Start van de ${selectedSport} wedstrijd!`);
+            let atleten = generateAthletes();
+            logMessage(`🏁 Deelnemers aan de ${selectedSport} wedstrijd: ${atleten.map(a => a.name).join(', ')}`);
+            logMessage(`📢 De wedstrijd begint!`);
 
             let duration = getDuration(selectedSport);
-            let atleten = generateAthletes();
             let interval = duration / 10;
             let progress = 0;
+            let isScoreBased = ["Militair pistool 25m", "Vrij geweer 300m", "Hoogduiken", "Eenarmig (Open)"].includes(selectedSport);
 
             let simulation = setInterval(() => {
                 progress += interval;
 
                 atleten.forEach(atleet => {
-                    let speedFactor = Math.random() * (selectedSport.includes("m") ? 10 : 100);
-                    atleet.progress += speedFactor;
+                    if (isScoreBased) {
+                        atleet.score += Math.floor(Math.random() * 10);
+                    } else {
+                        atleet.progress += Math.random() * 10;
+                    }
                 });
 
-                atleten.sort((a, b) => b.progress - a.progress);
-                updateLeaderboard(atleten);
+                atleten.sort((a, b) => isScoreBased ? b.score - a.score : b.progress - a.progress);
+                updateLeaderboard(atleten, isScoreBased);
 
-                logMessage(`📊 Tussenstand: ${atleten.map(a => `${a.name}: ${a.progress.toFixed(1)}m`).join(' | ')}`);
+                if (!isScoreBased) {
+                    logMessage(`${atleten[0].name} neemt de leiding met ${atleten[0].progress.toFixed(1)} meter!`);
+                }
 
                 if (progress >= duration) {
                     clearInterval(simulation);
