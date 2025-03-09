@@ -31,8 +31,12 @@
 </head>
 <body>
 
+<div class="nav">
+    <a href="index.html">🏠 Home</a>
+</div>
+
 <div class="container">
-    <h1>Registreren</h1>
+    <h1>Registreren 📝</h1>
     <form id="registerForm">
         <input type="text" id="username" placeholder="Gebruikersnaam" required><br><br>
         <input type="email" id="email" placeholder="E-mail" required><br><br>
@@ -41,20 +45,25 @@
     </form>
     <p>Heb je al een account? <a href="login.html">Log hier in</a></p>
 </div>
-
 <script>
+    let landen = [
+        "Australië", "Bulgarije", "Chili", "Denemarken", "IJsland", "Duitsland", "Frankrijk", "Griekenland",
+        "Canada", "Japan", "Brazilië", "Italië", "India", "Verenigde Staten", "Zuid-Korea", "Nederland"
+    ];
+
     function registreer() {
         let gebruikersnaam = document.getElementById("username").value;
         let email = document.getElementById("email").value;
 
         if (gebruikersnaam && email) {
-            alert("Registratie succesvol! Je land wordt toegewezen...");
+            let toegewezenLand = landen[Math.floor(Math.random() * landen.length)];
+            localStorage.setItem("mijnLand", toegewezenLand);
+            alert("Registratie succesvol! Je land is " + toegewezenLand);
             window.location.href = "manager.html";
         } else {
             alert("Vul alle velden in!");
         }
     }
 </script>
-
 </body>
 </html>
