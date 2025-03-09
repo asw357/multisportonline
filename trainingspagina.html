@@ -53,3 +53,30 @@
         <p>Nog geen training uitgevoerd.</p>
     </div>
 </div>
+<script>
+    let mpSaldo = 100; // Simulatie van Medal Points
+
+    function startTraining() {
+        let training = document.getElementById("trainingSelect").value;
+        let logDiv = document.getElementById("trainingsLog");
+
+        if (mpSaldo < 10) {
+            alert("Niet genoeg MP om te trainen!");
+            return;
+        }
+
+        mpSaldo -= 10;
+
+        let effecten = {
+            "sprint": "✅ Meer snelheid | ❌ Minder uithoudingsvermogen",
+            "kracht": "✅ Meer kracht | ❌ Minder snelheid",
+            "uithouding": "✅ Meer uithoudingsvermogen | ❌ Minder explosiviteit",
+            "techniek": "✅ Meer controle | ❌ Minder brute kracht"
+        };
+
+        logDiv.innerHTML += `<p>🏃 Training gestart: ${effecten[training]}</p>`;
+    }
+</script>
+
+</body>
+</html>
