@@ -1,3 +1,50 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registreren - MultisportOnline</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Registreren</h2>
+    <input type="text" id="username" placeholder="Gebruikersnaam">
+    <input type="email" id="email" placeholder="E-mailadres">
+    <input type="password" id="password" placeholder="Wachtwoord">
+    <button onclick="registreer()">Registreer</button>
+</div>
+
 <script>
     let landen = [
         "Australië", "Bulgarije", "Chili", "Denemarken", "IJsland", "Duitsland", "Frankrijk", "Griekenland",
@@ -34,7 +81,8 @@
         let wachtwoord = document.getElementById("password").value;
 
         if (gebruikersnaam && email && wachtwoord) {
-            let volgendeIndex = parseInt(localStorage.getItem("volgendeLandIndex")) || 0;
+            let toegewezenLanden = JSON.parse(localStorage.getItem("toegewezenLanden")) || [];
+            let volgendeIndex = toegewezenLanden.length; // Geeft het volgende vrije land
 
             if (volgendeIndex >= landen.length) {
                 alert("Geen beschikbare landen meer!");
@@ -43,8 +91,9 @@
 
             let toegewezenLand = landen[volgendeIndex];
 
-            // Sla het land en de volgende index op
-            localStorage.setItem("volgendeLandIndex", volgendeIndex + 1);
+            // Sla het toegewezen land op
+            toegewezenLanden.push(toegewezenLand);
+            localStorage.setItem("toegewezenLanden", JSON.stringify(toegewezenLanden));
             localStorage.setItem("mijnLand", toegewezenLand);
             
             alert("Registratie succesvol! Je land is: " + toegewezenLand);
@@ -54,3 +103,6 @@
         }
     }
 </script>
+
+</body>
+</html>
